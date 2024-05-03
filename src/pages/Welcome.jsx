@@ -10,7 +10,7 @@ const Welcome = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center py-6">
+    <div className="flex flex-col items-center justify-center">
       <div className="flex flex-col items-center justify-center w-full max-w-md">
         <h1 className="text-5xl text-center mb-1 font-outline font-bold py-2">
           Welcome to PokéFight!
