@@ -14,7 +14,7 @@ function App() {
           <Route path="/" element={<Welcome />} />
           <Route path="/welcome" element={<Welcome />} />
           <Route
-            path="/fight/pokemondetails/:id"
+            path="/pokemon/pokemondetails/:id"
             element={<PokemonDetails />}
           />
           <Route path="/fight" element={<Fight />} />
