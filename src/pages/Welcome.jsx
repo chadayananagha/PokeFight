@@ -1,16 +1,24 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import Fight from "./Fight";
 
-const Welcome = () => {
+const Welcome = ({ onSelect }) => {
   const [selectedPokemon, setSelectedPokemon] = useState(null);
   const [hoveredPokemon, setHoveredPokemon] = useState(null);
+
+  let navigate = useNavigate();
+  const routeChange = () => {
+    navigate("/fight");
+  };
 
   const handleSelectPokemon = (pokemon) => {
     setSelectedPokemon(pokemon);
     setHoveredPokemon(null);
+    onSelect(pokemon);
   };
 
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center justify-center py-6">
       <div className="flex flex-col items-center justify-center w-full max-w-md">
         <h1 className="text-5xl text-center mb-1 font-outline font-bold py-2">
           Welcome to PokéFight!
@@ -109,7 +117,10 @@ const Welcome = () => {
         />
       </div>
 
-      <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg bg-blue-300 font-mono">
+      <button
+        onClick={routeChange}
+        className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg bg-blue-300 font-mono"
+      >
         Start Adventure
       </button>
     </div>
