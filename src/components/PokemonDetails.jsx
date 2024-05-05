@@ -1,12 +1,11 @@
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-const PokemonDetails = () => {
-  const [singlePokemon, setSinglePokemon] = useState([]);
 
+const PokemonDetails = () => {
+  const [singlePokemon, setSinglePokemon] = useState(null);
   const { id } = useParams();
 
-  //Fetch Pokemon details by id
   useEffect(() => {
     const getPokemonById = async (id) => {
       try {
@@ -22,6 +21,25 @@ const PokemonDetails = () => {
 
     getPokemonById(id);
   }, [id]);
+
+  const typeColors = {
+    Grass: "#78C850",
+    Fire: "#F08030",
+    Water: "#6890F0",
+    Bug: "#A8B820",
+    Normal: "#A8A878",
+    Poison: "#A040A0",
+    Electric: "#F8D030",
+    Ground: "#E0C068",
+    Fairy: "#EE99AC",
+    Fighting: "#C03028",
+    Psychic: "#F85888",
+    Rock: "#B8A038",
+    Ghost: "#705898",
+    Ice: "#98D8D8",
+    Flying: "#A890F0",
+  };
+
   return singlePokemon ? (
     <>
       <div className="xl:mx-96 lg:mx-28 justify-center my-12 font-mono mx-2 rounded-lg bg-warning py-8 px-4">
@@ -32,22 +50,35 @@ const PokemonDetails = () => {
           <div className="flex flex-col gap-4">
             <div>
               <p className="flex text-xl mb-4 btn btn-accent font-mono">
-                Health Points:{singlePokemon.stats?.health_points}
+                Health Points: {singlePokemon.stats?.health_points}
               </p>
               <p className="flex text-xl mb-4 btn btn-accent font-mono">
-                Attack:{singlePokemon.stats?.attack}
+                Attack: {singlePokemon.stats?.attack}
               </p>
               <p className="flex text-xl mb-4 btn btn-accent font-mono">
-                Defense:{singlePokemon.stats?.defense}
+                Defense: {singlePokemon.stats?.defense}
               </p>
               <p className="flex text-xl mb-4 btn btn-accent font-mono">
-                Special Attack:{singlePokemon.stats?.special_attack}
+                Special Attack: {singlePokemon.stats?.special_attack}
               </p>
               <p className="flex text-xl mb-4 btn btn-accent font-mono">
-                Special Defense:{singlePokemon.stats?.special_defense}
+                Special Defense: {singlePokemon.stats?.special_defense}
               </p>
               <p className="flex text-xl mb-4 btn btn-accent font-mono">
-                Speed:{singlePokemon.stats?.speed}
+                Speed: {singlePokemon.stats?.speed}
+              </p>
+              <p className="flex text-xl mb-4 btn btn-accent font-mono">
+                Type: {singlePokemon.type}
+              </p>
+              <p className="flex text-xl mb-4 btn btn-accent font-mono">
+                Abilities:{" "}
+                {singlePokemon.abilities &&
+                  singlePokemon.abilities.map((ability, index) => (
+                    <span key={index}>
+                      {ability}
+                      {index !== singlePokemon.abilities.length - 1 && ", "}
+                    </span>
+                  ))}
               </p>
             </div>
 
@@ -68,6 +99,9 @@ const PokemonDetails = () => {
           <div
             className="card w-[350px] h-[300px] shadow-xl"
             key={singlePokemon.id}
+            style={{
+              backgroundColor: typeColors[singlePokemon.type] || "#A8A878",
+            }}
           >
             <figure>
               <img
