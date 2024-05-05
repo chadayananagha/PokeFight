@@ -65,7 +65,7 @@ const Pokemon = () => {
   };
 
   return (
-    <div className="flex flex-wrap justify-evenly">
+    <div className="flex flex-wrap justify-evenly my-10">
       <MyTeam />
       <div>
         <h1 className="text-center mt-10 text-xl font-bold font-mono">
@@ -171,9 +171,7 @@ const Pokemon = () => {
           Pokedex
         </h1>
         <div className="my-12 font-mono mx-2 rounded-lg bg-warning py-8 px-4 lg:w-[700px]">
-          {loadingPokemon ? (
-            <TailSpin color="red" radius={"8px"} />
-          ) : filteredPokemons && filteredPokemons.length > 0 ? (
+          {filteredPokemons && filteredPokemons.length > 0 ? (
             <div className="flex flex-wrap gap-2 h-[510px] overflow-y-scroll justify-center">
               {filteredPokemons.map((pokemon) => (
                 <div
@@ -211,7 +209,9 @@ const Pokemon = () => {
               ))}
             </div>
           ) : (
-            <p>No pokemons found.</p>
+            <div className="flex justify-center items-center">
+              <TailSpin color="red" radius={"8px"} />
+            </div>
           )}
         </div>
       </div>
