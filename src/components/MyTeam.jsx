@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { TailSpin } from "react-loader-spinner";
 
 const MyTeam = () => {
-  const [loadingTeamPokemon, setLoadingTeamPokemon] = useState(true);
+  const [loadingTeamPokemon, setLoadingTeamPokemon] = useState(false);
   const [error, setError] = useState(null);
   const [teamPokemons, setTeamPokemons] = useState([]);
 
@@ -13,9 +14,10 @@ const MyTeam = () => {
           "https://poke-fight-backend-ywlk.onrender.com/api/threepokemons"
         );
         setTeamPokemons(response.teamPokemons);
-        setLoadingTeamPokemon(false);
+        setLoadingTeamPokemon(true);
       } catch (error) {
         setError("Error fetching Team Pokemons");
+      } finally {
         setLoadingTeamPokemon(false);
       }
     };
@@ -31,9 +33,9 @@ const MyTeam = () => {
         <h1 className="text-center mt-10 text-xl font-bold font-mono">
           My Team
         </h1>
-        <div className="my-12 font-mono mx-2 rounded-lg bg-warning py-8 px-4 lg:w-[700px]">
+        <div className="my-12 font-mono rounded-lg bg-warning py-8 px-4 lg:w-[700px]">
           {loadingTeamPokemon ? (
-            <p>Loading team pokemons...</p>
+            <TailSpin color="red" radius={"8px"} />
           ) : teamPokemons && teamPokemons.length > 0 ? (
             <div className="flex flex-wrap gap-2 h-[510px] justify-center overflow-auto">
               {teamPokemons.map((teampokemon) => (

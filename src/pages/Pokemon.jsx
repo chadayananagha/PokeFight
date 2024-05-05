@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import MyTeam from "../components/MyTeam";
+import { TailSpin } from "react-loader-spinner";
 
 const Pokemon = () => {
   const [pokemons, setPokemons] = useState([]);
-  const [loadingPokemon, setLoadingPokemon] = useState(true);
+  const [loadingPokemon, setLoadingPokemon] = useState(false);
   const [error, setError] = useState(null);
   const [filteredPokemons, setFilteredPokemons] = useState([]);
 
@@ -16,9 +17,10 @@ const Pokemon = () => {
           "https://poke-fight-backend-ywlk.onrender.com/api/pokemons"
         );
         setPokemons(data.pokemons);
-        setLoadingPokemon(false);
+        setLoadingPokemon(true);
       } catch (error) {
         setError("Error fetching Pokemons");
+      } finally {
         setLoadingPokemon(false);
       }
     };
@@ -65,109 +67,112 @@ const Pokemon = () => {
   return (
     <div className="flex flex-wrap justify-evenly">
       <MyTeam />
-      <div className="mt-28 font-mono rounded-lg bg-warning h-[580px] w-[200px]">
-        <h2 className="text-center mb-2">Filter</h2>
-        <div className="flex flex-wrap justify-center">
-          <button
-            className="btn btn-primary mx-1 my-1"
-            onClick={() => filterPokemonsByType("all")}
-          >
-            All
-          </button>
-          <button
-            className="btn btn-primary mx-1 my-1"
-            onClick={() => filterPokemonsByType("Grass")}
-          >
-            Grass
-          </button>
-          <button
-            className="btn btn-primary mx-1 my-1"
-            onClick={() => filterPokemonsByType("Fire")}
-          >
-            Fire
-          </button>
-          <button
-            className="btn btn-primary mx-1 my-1"
-            onClick={() => filterPokemonsByType("Water")}
-          >
-            Water
-          </button>
-          <button
-            className="btn btn-primary mx-1 my-1"
-            onClick={() => filterPokemonsByType("Poison")}
-          >
-            Poison
-          </button>
-          <button
-            className="btn btn-primary mx-1 my-1"
-            onClick={() => filterPokemonsByType("Flying")}
-          >
-            Flying
-          </button>
-          <button
-            className="btn btn-primary mx-1 my-1"
-            onClick={() => filterPokemonsByType("Ground")}
-          >
-            Ground
-          </button>
-          <button
-            className="btn btn-primary mx-1 my-1"
-            onClick={() => filterPokemonsByType("Water")}
-          >
-            Bug
-          </button>
-          <button
-            className="btn btn-primary mx-1 my-1"
-            onClick={() => filterPokemonsByType("Fighting")}
-          >
-            Fighting
-          </button>
-          <button
-            className="btn btn-primary mx-1 my-1"
-            onClick={() => filterPokemonsByType("Psychic")}
-          >
-            Psychic
-          </button>
-          <button
-            className="btn btn-primary mx-1 my-1"
-            onClick={() => filterPokemonsByType("Fairy")}
-          >
-            Fairy
-          </button>
-          <button
-            className="btn btn-primary mx-1 my-1"
-            onClick={() => filterPokemonsByType("Electric")}
-          >
-            Electric
-          </button>
-          <button
-            className="btn btn-primary mx-1 my-1"
-            onClick={() => filterPokemonsByType("Rock")}
-          >
-            Rock
-          </button>
-          <button
-            className="btn btn-primary mx-1 my-1"
-            onClick={() => filterPokemonsByType("Ghost")}
-          >
-            Ghost
-          </button>
-          <button
-            className="btn btn-primary mx-1 my-1"
-            onClick={() => filterPokemonsByType("Ice")}
-          >
-            Ice
-          </button>
+      <div>
+        <h1 className="text-center mt-10 text-xl font-bold font-mono">
+          Filter
+        </h1>
+        <div className="my-12 font-mono mx-2 rounded-lg bg-warning py-8 px-4 lg:w-[400px]">
+          <div className="flex flex-wrap justify-center">
+            <button
+              className="btn btn-primary mx-1 my-1"
+              onClick={() => filterPokemonsByType("all")}
+            >
+              All
+            </button>
+            <button
+              className="btn btn-primary mx-1 my-1"
+              onClick={() => filterPokemonsByType("Grass")}
+            >
+              Grass
+            </button>
+            <button
+              className="btn btn-primary mx-1 my-1"
+              onClick={() => filterPokemonsByType("Fire")}
+            >
+              Fire
+            </button>
+            <button
+              className="btn btn-primary mx-1 my-1"
+              onClick={() => filterPokemonsByType("Water")}
+            >
+              Water
+            </button>
+            <button
+              className="btn btn-primary mx-1 my-1"
+              onClick={() => filterPokemonsByType("Poison")}
+            >
+              Poison
+            </button>
+            <button
+              className="btn btn-primary mx-1 my-1"
+              onClick={() => filterPokemonsByType("Flying")}
+            >
+              Flying
+            </button>
+            <button
+              className="btn btn-primary mx-1 my-1"
+              onClick={() => filterPokemonsByType("Ground")}
+            >
+              Ground
+            </button>
+            <button
+              className="btn btn-primary mx-1 my-1"
+              onClick={() => filterPokemonsByType("Water")}
+            >
+              Bug
+            </button>
+            <button
+              className="btn btn-primary mx-1 my-1"
+              onClick={() => filterPokemonsByType("Fighting")}
+            >
+              Fighting
+            </button>
+            <button
+              className="btn btn-primary mx-1 my-1"
+              onClick={() => filterPokemonsByType("Psychic")}
+            >
+              Psychic
+            </button>
+            <button
+              className="btn btn-primary mx-1 my-1"
+              onClick={() => filterPokemonsByType("Fairy")}
+            >
+              Fairy
+            </button>
+            <button
+              className="btn btn-primary mx-1 my-1"
+              onClick={() => filterPokemonsByType("Electric")}
+            >
+              Electric
+            </button>
+            <button
+              className="btn btn-primary mx-1 my-1"
+              onClick={() => filterPokemonsByType("Rock")}
+            >
+              Rock
+            </button>
+            <button
+              className="btn btn-primary mx-1 my-1"
+              onClick={() => filterPokemonsByType("Ghost")}
+            >
+              Ghost
+            </button>
+            <button
+              className="btn btn-primary mx-1 my-1"
+              onClick={() => filterPokemonsByType("Ice")}
+            >
+              Ice
+            </button>
+          </div>
         </div>
       </div>
-
       <div>
         <h1 className="text-center mt-10 text-xl font-bold font-mono">
           Pokedex
         </h1>
         <div className="my-12 font-mono mx-2 rounded-lg bg-warning py-8 px-4 lg:w-[700px]">
           {loadingPokemon ? (
-            <p>Loading...</p>
+            <TailSpin color="red" radius={"8px"} />
           ) : filteredPokemons && filteredPokemons.length > 0 ? (
             <div className="flex flex-wrap gap-2 h-[510px] overflow-y-scroll justify-center">
               {filteredPokemons.map((pokemon) => (

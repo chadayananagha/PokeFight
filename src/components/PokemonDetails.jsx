@@ -1,21 +1,28 @@
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { TailSpin } from "react-loader-spinner";
 
 const PokemonDetails = () => {
   const [singlePokemon, setSinglePokemon] = useState(null);
+  const [loading, setLoading] = useState(false);
   const { id } = useParams();
 
   useEffect(() => {
     const getPokemonById = async (id) => {
       try {
+        setTimeout(() => {
+          setLoading(true);
+        }, 6000);
+
         const { data } = await axios.get(
           `https://poke-fight-backend-ywlk.onrender.com/api/pokemons/${id}`
         );
         setSinglePokemon(data);
       } catch (error) {
         console.error("Error fetching Pokemon:", error);
-        // Handle error gracefully, e.g., setSinglePokemon(null) or display an error message
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -70,16 +77,6 @@ const PokemonDetails = () => {
               <p className="flex text-xl mb-4 btn btn-accent font-mono">
                 Type: {singlePokemon.type}
               </p>
-              <p className="flex text-xl mb-4 btn btn-accent font-mono">
-                Abilities:{" "}
-                {singlePokemon.abilities &&
-                  singlePokemon.abilities.map((ability, index) => (
-                    <span key={index}>
-                      {ability}
-                      {index !== singlePokemon.abilities.length - 1 && ", "}
-                    </span>
-                  ))}
-              </p>
             </div>
 
             <div>
@@ -115,7 +112,7 @@ const PokemonDetails = () => {
       </div>
     </>
   ) : (
-    <span className="loading loading-spinner text-secondary"></span>
+    <TailSpin color="red" radius={"8px"} />
   );
 };
 
