@@ -1,12 +1,20 @@
 import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import Fight from './Fight';
 
-const Welcome = () => {
+const Welcome = ({ onSelect }) => {
 	const [selectedPokemon, setSelectedPokemon] = useState(null);
 	const [hoveredPokemon, setHoveredPokemon] = useState(null);
+
+	let navigate = useNavigate();
+	const routeChange = () => {
+		navigate('/fight');
+	};
 
 	const handleSelectPokemon = (pokemon) => {
 		setSelectedPokemon(pokemon);
 		setHoveredPokemon(null);
+		onSelect(pokemon);
 	};
 
 	return (
@@ -109,7 +117,10 @@ const Welcome = () => {
 				/>
 			</div>
 
-			<button className='btn btn-xs sm:btn-sm md:btn-md lg:btn-lg bg-blue-300 font-mono'>
+			<button
+				onClick={routeChange}
+				className='btn btn-xs sm:btn-sm md:btn-md lg:btn-lg bg-blue-300 font-mono'
+			>
 				Start Adventure
 			</button>
 		</div>
