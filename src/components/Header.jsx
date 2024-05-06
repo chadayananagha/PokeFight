@@ -1,17 +1,25 @@
-import React from "react";
 import { IoMoon, IoSunny } from "react-icons/io5";
+import React, { useState, useEffect } from "react";
+import logo from "../../public/pokemon-logo-black-transparent.png";
 
 const Header = () => {
-  const [dark, setDark] = React.useState(false);
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "night");
 
-  const darkModeHandler = () => {
-    setDark(!dark);
-    document.body.classList.toggle("dark");
+  useEffect(() => {
+    localStorage.setItem("theme", theme);
+    const html = document.querySelector("html");
+    html.setAttribute("data-theme", theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === "lemonade" ? "night" : "lemonade"));
   };
+
+  const dayTheme = theme === "lemonade";
 
   return (
     <nav>
-      <div className="navbar bg-base-100">
+      <div className="navbar bg-primary">
         <div className="navbar-start flex items-center lg:items-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -32,41 +40,43 @@ const Header = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 font-bold text-lg font-mono"
             >
               <li>
-                <a>Fight</a>
+                <a href="/fight">Fight</a>
               </li>
               <li>
-                <a>Pokemon</a>
+                <a href="/pokemon">Pokemon</a>
               </li>
               <li>
-                <a>Leaderboard</a>
+                <a href="/leaderboard">Leaderboard</a>
               </li>
             </ul>
           </div>
-          <img
-            src="./pokemon-logo-black-transparent.png"
-            alt="Pokemon Logo"
-            className="logo btn btn-ghost text-xl ml-auto lg:ml-0 bg-transparent"
-          />
+          <a href="/welcome" className="ml-auto lg:ml-0">
+            <img
+              src={logo}
+              alt="Pokemon Logo"
+              className="logo btn btn-ghost text-xl ml-auto lg:ml-0 bg-transparent"
+            />
+          </a>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">
+          <ul className="menu menu-horizontal px-1 font-bold text-lg font-mono">
             <li>
-              <a>Fight</a>
+              <a href="/fight">Fight</a>
             </li>
             <li>
-              <a>Pokemon</a>
+              <a href="/pokemon">Pokemon</a>
             </li>
             <li>
-              <a>Leaderboard</a>
+              <a href="/leaderboard">Leaderboard</a>
             </li>
           </ul>
         </div>
         <div className="navbar-end">
-          <button className="btn" onClick={darkModeHandler}>
-            {dark ? <IoSunny /> : <IoMoon />}
+          <button className="btn" onClick={toggleTheme}>
+            {dayTheme ? <IoMoon /> : <IoSunny />}
           </button>
         </div>
       </div>
