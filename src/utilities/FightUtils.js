@@ -14,7 +14,7 @@ export const fetchData = async () => {
 export const fetchRandomPokemon = async () => {
 	try {
 		const response = await axios.get(
-			'http://localhost:8080/api/pokemons/random'
+			'https://poke-fight-backend-ywlk.onrender.com/api/pokemons/random'
 		);
 		return response.data;
 	} catch (error) {
