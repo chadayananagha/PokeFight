@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { TailSpin } from "react-loader-spinner";
+import "../../src/App.css";
 
 const MyTeam = () => {
   const [loadingPokemon, setLoadingPokemon] = useState(false);
@@ -58,8 +59,11 @@ const MyTeam = () => {
           Team Count: {pokemons.length}/6
         </h2>
         {loadingPokemon ? (
-          <div className="flex justify-center">
-            <TailSpin color="red" radius={8} />
+          // <div className="flex justify-center">
+          //   <TailSpin color="red" radius={8} />
+          // </div>
+          <div class="wrapper">
+            <div class="pokeball"></div>
           </div>
         ) : (
           <div className="flex flex-wrap gap-2 h-[510px] overflow-auto justify-center">

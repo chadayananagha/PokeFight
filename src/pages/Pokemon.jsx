@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import MyTeam from "../components/MyTeam";
 import { TailSpin } from "react-loader-spinner";
+import "../../src/App.css";
 
 const Pokemon = () => {
   const [pokemons, setPokemons] = useState([]);
@@ -209,8 +210,11 @@ const Pokemon = () => {
               ))}
             </div>
           ) : (
-            <div className="flex justify-center items-center">
-              <TailSpin color="red" radius={"8px"} />
+            // <div className="flex justify-center items-center">
+            //   <TailSpin color="red" radius={"8px"} />
+            // </div>
+            <div class="wrapper">
+              <div class="pokeball"></div>
             </div>
           )}
         </div>

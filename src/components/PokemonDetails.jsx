@@ -112,8 +112,11 @@ const PokemonDetails = () => {
       </div>
     </>
   ) : (
-    <div className="flex justify-center items-center">
-      <TailSpin color="red" radius={"8px"} />
+    // <div className="flex justify-center items-center">
+    //   <TailSpin color="red" radius={"8px"} />
+    // </div>
+    <div class="wrapper">
+      <div class="pokeball"></div>
     </div>
   );
 };

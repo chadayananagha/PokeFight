@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Fight from "./Fight";
+import bulbasaur from "../assets/bulbasaur.png";
+import charmander from "../assets/charmander.png";
+import squirtle from "../assets/squirtle.png";
 
 const Welcome = ({ onSelect }) => {
   const [selectedPokemon, setSelectedPokemon] = useState(null);
@@ -48,11 +51,7 @@ const Welcome = ({ onSelect }) => {
             onMouseLeave={() => setHoveredPokemon(null)}
           >
             <figure className="px-8 pt-8 transition-transform duration-300">
-              <img
-                src="./bulbasaur.png"
-                alt="Bulbasaur"
-                className="rounded-xl"
-              />
+              <img src={bulbasaur} alt="Bulbasaur" className="rounded-xl" />
             </figure>
             <div className="card-body items-center text-center font-mono">
               <h2 className="card-title">Bulbasaur</h2>
@@ -73,11 +72,7 @@ const Welcome = ({ onSelect }) => {
             onMouseLeave={() => setHoveredPokemon(null)}
           >
             <figure className="px-8 pt-8 transition-transform duration-300">
-              <img
-                src="./charmander.png"
-                alt="Charmander"
-                className="rounded-xl"
-              />
+              <img src={charmander} alt="Charmander" className="rounded-xl" />
             </figure>
             <div className="card-body items-center text-center font-mono">
               <h2 className="card-title">Charmander</h2>
@@ -98,7 +93,7 @@ const Welcome = ({ onSelect }) => {
             onMouseLeave={() => setHoveredPokemon(null)}
           >
             <figure className="px-8 pt-8 transition-transform duration-300">
-              <img src="./squirtle.png" alt="Squirtle" className="rounded-xl" />
+              <img src={squirtle} alt="Squirtle" className="rounded-xl" />
             </figure>
             <div className="card-body items-center text-center font-mono">
               <h2 className="card-title">Squirtle</h2>

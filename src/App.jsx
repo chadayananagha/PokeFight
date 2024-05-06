@@ -28,7 +28,10 @@ function App() {
             element={<Fight selectOnePoke={selectOnePoke} />}
           />
 
-          <Route path="/pokemon" element={<Pokemon />} />
+          <Route
+            path="/pokemon"
+            element={<Pokemon selectOnePoke={selectOnePoke} />}
+          />
           <Route path="/leaderboard" element={<Leaderboard />} />
         </Route>
       </Routes>
