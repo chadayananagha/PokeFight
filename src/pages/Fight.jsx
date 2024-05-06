@@ -1,6 +1,7 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { fetchData } from "../utilities/FightUtils";
+import Opponent from "../components/Opponent";
 
 const Fight = ({ selectOnePoke }) => {
   const [pokemonData, setPokemonData] = useState([]);
