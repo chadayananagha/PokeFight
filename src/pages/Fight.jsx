@@ -16,12 +16,32 @@ const Fight = ({ selectOnePoke }) => {
 			const data = await fetchData();
 			setPokemonData(data);
 			const result = data.pokemons.filter(
-				(pokemon) => pokemon.name == selectOnePoke
+				(pokemon) => pokemon.name === selectOnePoke
 			);
 			setSelectedPokeForFight(result[0]);
 		};
 		fetchAPI();
 	}, []);
+	const typeColors = {
+		Normal: '#A8A77A',
+		Fire: '#EE8130',
+		Water: '#6390F0',
+		Electric: '#F7D02C',
+		Grass: '#7AC74C',
+		Ice: '#96D9D6',
+		Fighting: '#C22E28',
+		Poison: '#A33EA1',
+		Ground: '#E2BF65',
+		Flying: '#A98FF3',
+		Psychic: '#F95587',
+		Bug: '#A6B91A',
+		Rock: '#B6A136',
+		Ghost: '#735797',
+		Dragon: '#6F35FC',
+		Dark: '#705746',
+		Steel: '#B7B7CE',
+		Fairy: '#D685AD',
+	};
 
 	return (
 		<div>
@@ -35,30 +55,35 @@ const Fight = ({ selectOnePoke }) => {
 						Pokeballs
 					</p>
 				</div>
-				{/* {pokemonData ? (
-          pokemonData.pokemons?.map((pokemon, index) => (
-            <Link key={index}>
-              <img src={pokemon.image_url} alt="" width={30} height={30} />
-            </Link>
-          ))
-        ) : (
-          <div>loading...</div>
-        )} */}
 				<div className='flex justify-evenly'>
-					<div className='card w-[200px] h-[250px] shadow-xl justify-center px-10'>
+					<div className='flex flex-wrap gap-2 h-[510px] overflow-auto justify-center'>
 						{selectedPokeForFight ? (
-							<div>
-								<p className='text-3xl font-outline font-bold'>
+							<div
+								className='card w-[200px] h-[250px] shadow-xl justify-center'
+								style={{
+									background:
+										selectedPokeForFight.type.length === 1
+											? typeColors[selectedPokeForFight.type[0]]
+											: selectedPokeForFight.type.length === 2
+											? `linear-gradient(to right, ${
+													typeColors[selectedPokeForFight.type[0]]
+											  }, ${typeColors[selectedPokeForFight.type[1]]})`
+											: 'transparent',
+								}}
+							>
+								<h2 className='pt-2 text-xl text-center'>
 									{selectedPokeForFight.name}
-								</p>
-								<img
-									className=''
-									src={selectedPokeForFight.image_url}
-									alt={selectedPokeForFight.name}
-								/>
+								</h2>
+								<figure>
+									<img
+										className='w-[100px] aspect-square object-cover'
+										src={selectedPokeForFight.image_url}
+										alt={selectedPokeForFight.name}
+									/>
+								</figure>
 							</div>
 						) : (
-							<p>loading</p>
+							<p>Loading...</p>
 						)}
 					</div>
 					<Opponent />

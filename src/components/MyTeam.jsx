@@ -34,21 +34,24 @@ const MyTeam = () => {
 	}
 
 	const typeColors = {
-		Grass: '#78C850',
-		Fire: '#F08030',
-		Water: '#6890F0',
-		bug: '#A8B820',
-		Normal: '#A8A878',
-		Poison: '#A040A0',
-		Electric: '#F8D030',
-		Ground: '#E0C068',
-		Fairy: '#EE99AC',
-		Fighting: '#C03028',
-		Psychic: '#F85888',
-		Rock: '#B8A038',
-		Ghost: '#705898',
-		Ice: '#98D8D8',
-		Flying: '#A890F0',
+		Normal: '#A8A77A',
+		Fire: '#EE8130',
+		Water: '#6390F0',
+		Electric: '#F7D02C',
+		Grass: '#7AC74C',
+		Ice: '#96D9D6',
+		Fighting: '#C22E28',
+		Poison: '#A33EA1',
+		Ground: '#E2BF65',
+		Flying: '#A98FF3',
+		Psychic: '#F95587',
+		Bug: '#A6B91A',
+		Rock: '#B6A136',
+		Ghost: '#735797',
+		Dragon: '#6F35FC',
+		Dark: '#705746',
+		Steel: '#B7B7CE',
+		Fairy: '#D685AD',
 	};
 
 	return (
@@ -72,7 +75,12 @@ const MyTeam = () => {
 								className='card w-[200px] h-[250px] shadow-xl justify-center'
 								key={pokemon._id}
 								style={{
-									backgroundColor: typeColors[pokemon.type] || '#A8A878',
+									background:
+										pokemon.type.length === 1
+											? typeColors[pokemon.type[0]]
+											: `linear-gradient(to right, ${
+													typeColors[pokemon.type[0]]
+											  }, ${typeColors[pokemon.type[1]]})`,
 								}}
 							>
 								<h2 className='pt-2 text-xl text-center'>{pokemon.name}</h2>
