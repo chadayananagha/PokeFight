@@ -45,7 +45,7 @@ const Fight = ({ selectOnePoke }) => {
 
   return (
     <div>
-      <div className=" border-2 rounded">
+      <div className=" border-2 rounded my-8">
         <div className="flex flex-col items-center justify-center py-6">
           <h1 className="text-5xl font-bold mb-4">
             A wild Pokémon has appeared, {playerName}!
