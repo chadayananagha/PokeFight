@@ -1,23 +1,84 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import Fight from "./Fight";
-import bulbasaur from "../assets/bulbasaur.png";
-import charmander from "../assets/charmander.png";
-import squirtle from "../assets/squirtle.png";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Welcome = ({ onSelect }) => {
+  const [pokemonData, setPokemonData] = useState([]);
   const [selectedPokemon, setSelectedPokemon] = useState(null);
   const [hoveredPokemon, setHoveredPokemon] = useState(null);
+  const [playerName, setPlayerName] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  let navigate = useNavigate();
-  const routeChange = () => {
-    navigate("/fight");
-  };
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "https://poke-fight-backend-ywlk.onrender.com/api/threepokemons"
+        );
+        if (!response.ok) {
+          throw new Error("Failed to fetch data");
+        }
+        const data = await response.json();
+        setPokemonData(data.pokemons);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setError(error);
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleSelectPokemon = (pokemon) => {
     setSelectedPokemon(pokemon);
     setHoveredPokemon(null);
     onSelect(pokemon);
+  };
+
+  const routeChange = () => {
+    if (!playerName) {
+      alert("Please enter your name before starting the adventure!");
+    } else if (!selectedPokemon) {
+      alert("Please choose a Pokémon before starting the adventure!");
+    } else {
+      navigate(`/fight?playerName=${encodeURIComponent(playerName)}`);
+    }
+  };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
+  if (!Array.isArray(pokemonData)) {
+    console.error("Invalid pokemonData:", pokemonData);
+    return <div>Error: Invalid data format</div>;
+  }
+
+  const typeColors = {
+    Grass: "bg-green-400",
+    Fire: "bg-red-200",
+    Water: "bg-blue-200",
+  };
+
+  const getBackgroundColor = (type) => {
+    switch (type) {
+      case "Fire":
+        return "bg-red-200";
+      case "Grass":
+        return "bg-green-200";
+      case "Water":
+        return "bg-blue-200";
+      default:
+        return "bg-white";
+    }
   };
 
   return (
@@ -38,69 +99,33 @@ const Welcome = ({ onSelect }) => {
 
       <div className="flex justify-center items-center py-5 flex-wrap">
         <div className="flex justify-around flex-wrap">
-          <div
-            className={`card w-56 bg-base-100 shadow-xl ${
-              selectedPokemon === "Bulbasaur"
-                ? "bg-green-200"
-                : hoveredPokemon === "Bulbasaur"
-                ? "bg-gray-200"
-                : ""
-            }`}
-            onClick={() => handleSelectPokemon("Bulbasaur")}
-            onMouseEnter={() => setHoveredPokemon("Bulbasaur")}
-            onMouseLeave={() => setHoveredPokemon(null)}
-          >
-            <figure className="px-8 pt-8 transition-transform duration-300">
-              <img src={bulbasaur} alt="Bulbasaur" className="rounded-xl" />
-            </figure>
-            <div className="card-body items-center text-center font-mono">
-              <h2 className="card-title">Bulbasaur</h2>
-              <p>The grass-type Pokémon!</p>
-              <div className="card-actions"></div>
+          {pokemonData.map((pokemon) => (
+            <div
+              key={pokemon._id}
+              className={`card w-56 shadow-xl cursor-pointer ${
+                (selectedPokemon === pokemon.name &&
+                  getBackgroundColor(pokemon.type[0])) ||
+                (hoveredPokemon === pokemon.name && "bg-gray-200") ||
+                "bg-white"
+              }`}
+              onClick={() => handleSelectPokemon(pokemon.name)}
+              onMouseEnter={() => setHoveredPokemon(pokemon.name)}
+              onMouseLeave={() => setHoveredPokemon(null)}
+            >
+              <figure className="px-8 pt-8 transition-transform duration-300">
+                <img
+                  src={pokemon.image_url}
+                  alt={pokemon.name}
+                  className="rounded-xl"
+                />
+              </figure>
+              <div className="card-body items-center text-center font-mono">
+                <h2 className="card-title">{pokemon.name}</h2>
+                <p>{pokemon.type.join(", ")}</p>
+                <div className="card-actions"></div>
+              </div>
             </div>
-          </div>
-          <div
-            className={`card w-56 bg-base-100 shadow-xl ${
-              selectedPokemon === "Charmander"
-                ? "bg-green-200"
-                : hoveredPokemon === "Charmander"
-                ? "bg-gray-200"
-                : ""
-            }`}
-            onClick={() => handleSelectPokemon("Charmander")}
-            onMouseEnter={() => setHoveredPokemon("Charmander")}
-            onMouseLeave={() => setHoveredPokemon(null)}
-          >
-            <figure className="px-8 pt-8 transition-transform duration-300">
-              <img src={charmander} alt="Charmander" className="rounded-xl" />
-            </figure>
-            <div className="card-body items-center text-center font-mono">
-              <h2 className="card-title">Charmander</h2>
-              <p>The fire-type Pokémon!</p>
-              <div className="card-actions"></div>
-            </div>
-          </div>
-          <div
-            className={`card w-56 bg-base-100 shadow-xl ${
-              selectedPokemon === "Squirtle"
-                ? "bg-green-200"
-                : hoveredPokemon === "Squirtle"
-                ? "bg-gray-200"
-                : ""
-            }`}
-            onClick={() => handleSelectPokemon("Squirtle")}
-            onMouseEnter={() => setHoveredPokemon("Squirtle")}
-            onMouseLeave={() => setHoveredPokemon(null)}
-          >
-            <figure className="px-8 pt-8 transition-transform duration-300">
-              <img src={squirtle} alt="Squirtle" className="rounded-xl" />
-            </figure>
-            <div className="card-body items-center text-center font-mono">
-              <h2 className="card-title">Squirtle</h2>
-              <p>The water-type Pokémon!</p>
-              <div className="card-actions"></div>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
 
@@ -109,12 +134,16 @@ const Welcome = ({ onSelect }) => {
           type="text"
           placeholder="Enter your name"
           className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg bg-grey-200 font-mono py-2 px-4 rounded-md mb-3"
+          onChange={(e) => setPlayerName(e.target.value)}
         />
       </div>
 
       <button
         onClick={routeChange}
-        className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg bg-blue-300 font-mono"
+        disabled={!selectedPokemon}
+        className={`btn btn-xs sm:btn-sm md:btn-md lg:btn-lg ${
+          selectedPokemon ? "bg-blue-300" : "bg-gray-300"
+        } font-mono`}
       >
         Start Adventure
       </button>
