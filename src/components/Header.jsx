@@ -1,5 +1,6 @@
 import { IoMoon, IoSunny } from "react-icons/io5";
 import React, { useState, useEffect } from "react";
+import logo from "../../public/pokemon-logo-black-transparent.png";
 
 const Header = () => {
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "night");
@@ -54,7 +55,7 @@ const Header = () => {
           </div>
           <a href="/welcome" className="ml-auto lg:ml-0">
             <img
-              src="./pokemon-logo-black-transparent.png"
+              src={logo}
               alt="Pokemon Logo"
               className="logo btn btn-ghost text-xl ml-auto lg:ml-0 bg-transparent"
             />
