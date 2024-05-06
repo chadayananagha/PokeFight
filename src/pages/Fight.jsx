@@ -64,7 +64,7 @@ const Fight = ({ selectOnePoke }) => {
 
           <Opponent />
         </div>
-        <div className="buttonContainer flex justify-center py-60">
+        <div className="buttonContainer flex justify-center py-30">
           <button className="btn bg-black-100 btn-xs sm:btn md:btn-md font-mono">
             Start Battle
           </button>

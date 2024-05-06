@@ -10,6 +10,7 @@ const Pokemon = () => {
   const [loadingPokemon, setLoadingPokemon] = useState(false);
   const [error, setError] = useState(null);
   const [filteredPokemons, setFilteredPokemons] = useState([]);
+  const [filterType, setFilterType] = useState("all");
 
   useEffect(() => {
     const getAllPokemons = async () => {
@@ -29,6 +30,7 @@ const Pokemon = () => {
   }, []);
 
   const filterPokemonsByType = (type) => {
+    setFilterType(type);
     if (type === "all") {
       setFilteredPokemons(pokemons);
     } else {
@@ -74,7 +76,7 @@ const Pokemon = () => {
     } else {
       const firstTypeColor = typeColors[pokemon.type[0]] || "#A8A878";
       const secondTypeColor = typeColors[pokemon.type[1]] || "#A8A878";
-      return `linear-gradient(to right, ${firstTypeColor}, ${firstTypeColor} 50%, ${secondTypeColor} 50%, ${secondTypeColor})`;
+      return `linear-gradient(to right, ${firstTypeColor}, ${secondTypeColor})`;
     }
   };
 
@@ -88,19 +90,15 @@ const Pokemon = () => {
         <div className="my-12 font-mono mx-2 rounded-lg bg-warning py-8 px-4 lg:w-[400px]">
           <div className="flex flex-wrap justify-center">
             {/* Filter buttons */}
-            <button
-              className="btn btn-primary mx-1 my-1"
-              onClick={() => filterPokemonsByType("all")}
-            >
-              All
-            </button>
-            <button
-              className="btn btn-primary mx-1 my-1"
-              onClick={() => filterPokemonsByType("Grass")}
-            >
-              Grass
-            </button>
-            {/* Add other type buttons similarly */}
+            {Object.keys(typeColors).map((type, index) => (
+              <button
+                key={index}
+                className="btn btn-primary mx-1 my-1"
+                onClick={() => filterPokemonsByType(type)}
+              >
+                {type}
+              </button>
+            ))}
           </div>
         </div>
       </div>
@@ -109,7 +107,11 @@ const Pokemon = () => {
           Pokedex
         </h1>
         <div className="my-12 font-mono mx-2 rounded-lg bg-warning py-8 px-4 lg:w-[700px]">
-          {filteredPokemons && filteredPokemons.length > 0 ? (
+          {loadingPokemon ? (
+            <div className="flex justify-center items-center">
+              <TailSpin color="red" radius={"8px"} />
+            </div>
+          ) : (
             <div className="flex flex-wrap gap-2 h-[510px] overflow-y-scroll justify-center">
               {filteredPokemons.map((pokemon) => (
                 <div
@@ -146,9 +148,6 @@ const Pokemon = () => {
                 </div>
               ))}
             </div>
-          ) : (
-            // Loading spinner or placeholder
-            <div>Loading...</div>
           )}
         </div>
       </div>
