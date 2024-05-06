@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Welcome = ({ onSelect }) => {
   const [pokemonData, setPokemonData] = useState([]);
@@ -39,33 +39,6 @@ const Welcome = ({ onSelect }) => {
     onSelect(pokemon);
   };
 
-  const routeChange = () => {
-    if (!playerName) {
-      alert("Please enter your name before starting the adventure!");
-    } else {
-      navigate(`/fight?playerName=${encodeURIComponent(playerName)}`);
-    }
-  };
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
-
-  if (!Array.isArray(pokemonData)) {
-    console.error("Invalid pokemonData:", pokemonData);
-    return <div>Error: Invalid data format</div>;
-  }
-
-  const typeColors = {
-    Grass: "bg-green-400",
-    Fire: "bg-orange-400",
-    Water: "bg-blue-400",
-  };
-
   return (
     <div className="flex flex-col items-center justify-center py-6">
       <div className="flex flex-col items-center justify-center w-full max-w-md">
@@ -84,32 +57,46 @@ const Welcome = ({ onSelect }) => {
 
       <div className="flex justify-center items-center py-5 flex-wrap">
         <div className="flex justify-around flex-wrap">
-          {pokemonData.map((pokemon) => (
-            <div
-              key={pokemon._id}
-              className={`card w-56 shadow-xl ${
-                selectedPokemon === pokemon.name
-                  ? "bg-green-200"
-                  : hoveredPokemon === pokemon.name
-                  ? "bg-gray-200"
-                  : typeColors[pokemon.type[0]]
-              }`}
-              onClick={() => handleSelectPokemon(pokemon.name)}
-              onMouseEnter={() => setHoveredPokemon(pokemon.name)}
-              onMouseLeave={() => setHoveredPokemon(null)}
-            >
-              <figure className="px-8 pt-8 transition-transform duration-300">
-                <img
-                  src={pokemon.image_url}
-                  alt={pokemon.name}
-                  className="rounded-xl"
-                />
-              </figure>
-              <div className="card-body items-center text-center font-mono">
-                <h2 className="card-title">{pokemon.name}</h2>
-                <p>{pokemon.type.join(", ")}</p>
-                <div className="card-actions"></div>
-              </div>
+          <div
+            className={`card w-56 bg-base-100 shadow-xl ${
+              selectedPokemon === "Bulbasaur"
+                ? "bg-green-200"
+                : hoveredPokemon === "Bulbasaur"
+                ? "bg-gray-200"
+                : ""
+            }`}
+            onClick={() => handleSelectPokemon("Bulbasaur")}
+            onMouseEnter={() => setHoveredPokemon("Bulbasaur")}
+            onMouseLeave={() => setHoveredPokemon(null)}
+          >
+            <figure className="px-8 pt-8 transition-transform duration-300">
+              <img src={bulbasaur} alt="Bulbasaur" className="rounded-xl" />
+            </figure>
+            <div className="card-body items-center text-center font-mono">
+              <h2 className="card-title">Bulbasaur</h2>
+              <p>The grass-type Pokémon!</p>
+              <div className="card-actions"></div>
+            </div>
+          </div>
+          <div
+            className={`card w-56 bg-base-100 shadow-xl ${
+              selectedPokemon === "Charmander"
+                ? "bg-green-200"
+                : hoveredPokemon === "Charmander"
+                ? "bg-gray-200"
+                : ""
+            }`}
+            onClick={() => handleSelectPokemon("Charmander")}
+            onMouseEnter={() => setHoveredPokemon("Charmander")}
+            onMouseLeave={() => setHoveredPokemon(null)}
+          >
+            <figure className="px-8 pt-8 transition-transform duration-300">
+              <img src={charmander} alt="Charmander" className="rounded-xl" />
+            </figure>
+            <div className="card-body items-center text-center font-mono">
+              <h2 className="card-title">Charmander</h2>
+              <p>The fire-type Pokémon!</p>
+              <div className="card-actions"></div>
             </div>
           ))}
         </div>
@@ -126,7 +113,10 @@ const Welcome = ({ onSelect }) => {
 
       <button
         onClick={routeChange}
-        className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg bg-blue-300 font-mono"
+        disabled={!selectedPokemon}
+        className={`btn btn-xs sm:btn-sm md:btn-md lg:btn-lg ${
+          selectedPokemon ? "bg-blue-300" : "bg-gray-300"
+        } font-mono`}
       >
         Start Adventure
       </button>
