@@ -8,7 +8,6 @@ const Welcome = ({ onSelect }) => {
   const [playerName, setPlayerName] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [isPokemonSelected, setIsPokemonSelected] = useState(false);
 
   const navigate = useNavigate();
 
@@ -38,13 +37,12 @@ const Welcome = ({ onSelect }) => {
     setSelectedPokemon(pokemon);
     setHoveredPokemon(null);
     onSelect(pokemon);
-    setIsPokemonSelected(true);
   };
 
   const routeChange = () => {
     if (!playerName) {
       alert("Please enter your name before starting the adventure!");
-    } else if (!isPokemonSelected) {
+    } else if (!selectedPokemon) {
       alert("Please choose a Pokémon before starting the adventure!");
     } else {
       navigate(`/fight?playerName=${encodeURIComponent(playerName)}`);
@@ -142,9 +140,9 @@ const Welcome = ({ onSelect }) => {
 
       <button
         onClick={routeChange}
-        disabled={!isPokemonSelected}
+        disabled={!selectedPokemon}
         className={`btn btn-xs sm:btn-sm md:btn-md lg:btn-lg ${
-          isPokemonSelected ? "bg-blue-300" : "bg-gray-300"
+          selectedPokemon ? "bg-blue-300" : "bg-gray-300"
         } font-mono`}
       >
         Start Adventure
