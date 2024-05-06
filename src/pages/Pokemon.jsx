@@ -10,6 +10,7 @@ const Pokemon = () => {
   const [loadingPokemon, setLoadingPokemon] = useState(false);
   const [error, setError] = useState(null);
   const [filteredPokemons, setFilteredPokemons] = useState([]);
+  const [filterType, setFilterType] = useState("all");
 
   useEffect(() => {
     const getAllPokemons = async () => {
@@ -29,6 +30,7 @@ const Pokemon = () => {
   }, []);
 
   const filterPokemonsByType = (type) => {
+    setFilterType(type);
     if (type === "all") {
       setFilteredPokemons(pokemons);
     } else {
@@ -48,21 +50,34 @@ const Pokemon = () => {
   }
 
   const typeColors = {
-    Grass: "#78C850",
-    Fire: "#F08030",
-    Water: "#6890F0",
-    bug: "#A8B820",
-    Normal: "#A8A878",
-    Poison: "#A040A0",
-    Electric: "#F8D030",
-    Ground: "#E0C068",
-    Fairy: "#EE99AC",
-    Fighting: "#C03028",
-    Psychic: "#F85888",
-    Rock: "#B8A038",
-    Ghost: "#705898",
-    Ice: "#98D8D8",
-    Flying: "#A890F0",
+    Normal: "#A8A77A",
+    Fire: "#EE8130",
+    Water: "#6390F0",
+    Electric: "#F7D02C",
+    Grass: "#7AC74C",
+    Ice: "#96D9D6",
+    Fighting: "#C22E28",
+    Poison: "#A33EA1",
+    Ground: "#E2BF65",
+    Flying: "#A98FF3",
+    Psychic: "#F95587",
+    Bug: "#A6B91A",
+    Rock: "#B6A136",
+    Ghost: "#735797",
+    Dragon: "#6F35FC",
+    Dark: "#705746",
+    Steel: "#B7B7CE",
+    Fairy: "#D685AD",
+  };
+
+  const getPokemonBackgroundColor = (pokemon) => {
+    if (pokemon.type.length === 1) {
+      return typeColors[pokemon.type[0]] || "#A8A878";
+    } else {
+      const firstTypeColor = typeColors[pokemon.type[0]] || "#A8A878";
+      const secondTypeColor = typeColors[pokemon.type[1]] || "#A8A878";
+      return `linear-gradient(to right, ${firstTypeColor}, ${secondTypeColor})`;
+    }
   };
 
   return (
@@ -74,96 +89,16 @@ const Pokemon = () => {
         </h1>
         <div className="my-12 font-mono mx-2 rounded-lg bg-warning py-8 px-4 lg:w-[400px]">
           <div className="flex flex-wrap justify-center">
-            <button
-              className="btn btn-primary mx-1 my-1"
-              onClick={() => filterPokemonsByType("all")}
-            >
-              All
-            </button>
-            <button
-              className="btn btn-primary mx-1 my-1"
-              onClick={() => filterPokemonsByType("Grass")}
-            >
-              Grass
-            </button>
-            <button
-              className="btn btn-primary mx-1 my-1"
-              onClick={() => filterPokemonsByType("Fire")}
-            >
-              Fire
-            </button>
-            <button
-              className="btn btn-primary mx-1 my-1"
-              onClick={() => filterPokemonsByType("Water")}
-            >
-              Water
-            </button>
-            <button
-              className="btn btn-primary mx-1 my-1"
-              onClick={() => filterPokemonsByType("Poison")}
-            >
-              Poison
-            </button>
-            <button
-              className="btn btn-primary mx-1 my-1"
-              onClick={() => filterPokemonsByType("Flying")}
-            >
-              Flying
-            </button>
-            <button
-              className="btn btn-primary mx-1 my-1"
-              onClick={() => filterPokemonsByType("Ground")}
-            >
-              Ground
-            </button>
-            <button
-              className="btn btn-primary mx-1 my-1"
-              onClick={() => filterPokemonsByType("Water")}
-            >
-              Bug
-            </button>
-            <button
-              className="btn btn-primary mx-1 my-1"
-              onClick={() => filterPokemonsByType("Fighting")}
-            >
-              Fighting
-            </button>
-            <button
-              className="btn btn-primary mx-1 my-1"
-              onClick={() => filterPokemonsByType("Psychic")}
-            >
-              Psychic
-            </button>
-            <button
-              className="btn btn-primary mx-1 my-1"
-              onClick={() => filterPokemonsByType("Fairy")}
-            >
-              Fairy
-            </button>
-            <button
-              className="btn btn-primary mx-1 my-1"
-              onClick={() => filterPokemonsByType("Electric")}
-            >
-              Electric
-            </button>
-            <button
-              className="btn btn-primary mx-1 my-1"
-              onClick={() => filterPokemonsByType("Rock")}
-            >
-              Rock
-            </button>
-            <button
-              className="btn btn-primary mx-1 my-1"
-              onClick={() => filterPokemonsByType("Ghost")}
-            >
-              Ghost
-            </button>
-            <button
-              className="btn btn-primary mx-1 my-1"
-              onClick={() => filterPokemonsByType("Ice")}
-            >
-              Ice
-            </button>
+            {/* Filter buttons */}
+            {Object.keys(typeColors).map((type, index) => (
+              <button
+                key={index}
+                className="btn btn-primary mx-1 my-1"
+                onClick={() => filterPokemonsByType(type)}
+              >
+                {type}
+              </button>
+            ))}
           </div>
         </div>
       </div>
@@ -172,13 +107,17 @@ const Pokemon = () => {
           Pokedex
         </h1>
         <div className="my-12 font-mono mx-2 rounded-lg bg-warning py-8 px-4 lg:w-[700px]">
-          {filteredPokemons && filteredPokemons.length > 0 ? (
+          {loadingPokemon ? (
+            <div className="flex justify-center items-center">
+              <TailSpin color="red" radius={"8px"} />
+            </div>
+          ) : (
             <div className="flex flex-wrap gap-2 h-[510px] overflow-y-scroll justify-center">
               {filteredPokemons.map((pokemon) => (
                 <div
                   className="card w-[200px] h-[250px] bg-base-100 shadow-xl justify-center"
                   style={{
-                    backgroundColor: typeColors[pokemon.type] || "#A8A878",
+                    background: getPokemonBackgroundColor(pokemon),
                   }}
                   key={pokemon._id}
                 >
@@ -208,13 +147,6 @@ const Pokemon = () => {
                   </div>
                 </div>
               ))}
-            </div>
-          ) : (
-            // <div className="flex justify-center items-center">
-            //   <TailSpin color="red" radius={"8px"} />
-            // </div>
-            <div class="wrapper">
-              <div class="pokeball"></div>
             </div>
           )}
         </div>
