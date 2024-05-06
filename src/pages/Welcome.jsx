@@ -82,7 +82,7 @@ const Welcome = ({ onSelect }) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center py-6">
+    <div className="flex flex-col items-center justify-center py-6 my-8">
       <div className="flex flex-col items-center justify-center w-full max-w-md">
         <h1 className="text-5xl text-center mb-1 font-outline font-bold py-2">
           Welcome to PokéFight!
@@ -141,8 +141,8 @@ const Welcome = ({ onSelect }) => {
       <button
         onClick={routeChange}
         disabled={!selectedPokemon}
-        className={`btn btn-xs sm:btn-sm md:btn-md lg:btn-lg ${
-          selectedPokemon ? "bg-blue-300" : "bg-gray-300"
+        className={`btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-primary ${
+          selectedPokemon ? "btn-primary" : "bg-gray-300"
         } font-mono`}
       >
         Start Adventure
