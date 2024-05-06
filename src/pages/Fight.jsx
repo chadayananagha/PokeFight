@@ -25,9 +25,9 @@ const Fight = ({ selectOnePoke }) => {
 
   return (
     <div>
-      <div className=" border-2 rounded bg-yellow-100">
+      <div className=" border-2 rounded bg-yellow-100 pt-10">
         <div className="flex flex-col items-center justify-center py-6">
-          <h1 className="text-5xl font-bold mb-4">
+          <h1 className="text-5xl font-bold mb-4 pt-5">
             A wild Pokémon has appeared, {playerName}!
           </h1>
           <p className="text-lg">
@@ -64,7 +64,7 @@ const Fight = ({ selectOnePoke }) => {
 
           <Opponent />
         </div>
-        <div className="buttonContainer flex justify-center py-10">
+        <div className="buttonContainer flex justify-center py-60">
           <button className="btn bg-black-100 btn-xs sm:btn md:btn-md font-mono">
             Start Battle
           </button>
