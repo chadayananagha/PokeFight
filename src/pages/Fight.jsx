@@ -2,10 +2,14 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { fetchData } from "../utilities/FightUtils";
 import Opponent from "../components/Opponent";
+import { useLocation } from "react-router-dom";
 
 const Fight = ({ selectOnePoke }) => {
   const [pokemonData, setPokemonData] = useState([]);
   const [selectedPokeForFight, setSelectedPokeForFight] = useState(null);
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const playerName = searchParams.get("playerName");
 
   useEffect(() => {
     const fetchAPI = async () => {
@@ -21,6 +25,14 @@ const Fight = ({ selectOnePoke }) => {
 
   return (
     <div className=" border-2 rounded bg-yellow-100 w-9/12 h-80">
+      <div className="flex flex-col items-center justify-center py-6">
+        <h1 className="text-5xl font-bold mb-4">
+          Welcome to the Fight, {playerName}!
+        </h1>
+        <p className="text-lg">
+          Prepare yourself for the ultimate PokÃ©mon battle!
+        </p>
+      </div>
       {pokemonData ? (
         pokemonData.pokemons?.map((pokemon, index) => (
           <Link key={index}>
