@@ -34,46 +34,24 @@ const MyTeam = () => {
     return <div>Error: {error}</div>;
   }
 
-  const typeColors = {
-    Normal: "#A8A77A",
-    Fire: "#EE8130",
-    Water: "#6390F0",
-    Electric: "#F7D02C",
-    Grass: "#7AC74C",
-    Ice: "#96D9D6",
-    Fighting: "#C22E28",
-    Poison: "#A33EA1",
-    Ground: "#E2BF65",
-    Flying: "#A98FF3",
-    Psychic: "#F95587",
-    Bug: "#A6B91A",
-    Rock: "#B6A136",
-    Ghost: "#735797",
-    Dragon: "#6F35FC",
-    Dark: "#705746",
-    Steel: "#B7B7CE",
-    Fairy: "#D685AD",
-  };
-
   return (
     <div>
-      <h1 className="text-center mt-10 text-xl font-bold font-mono">My Team</h1>
-      <div className="my-12 mx-2 font-mono rounded-lg bg-warning py-2 px-4 lg:w-[700px]">
+      <h1 className="text-center mt-10 text-xl font-bold font-outline">
+        My Team
+      </h1>
+      <div className="my-12 mx-2 font-mono rounded-lg bg-warning py-2 px-4 lg:w-[500px]">
         <h2 className="text-lg font-bold text-center mb-2 text-black">
           Team Count: {pokemons.length}/6
         </h2>
         {loadingPokemon ? (
-          // <div className="flex justify-center">
-          //   <TailSpin color="red" radius={8} />
-          // </div>
           <div class="wrapper">
             <div class="pokeball"></div>
           </div>
         ) : (
-          <div className="flex flex-wrap gap-2 h-[510px] overflow-auto justify-center">
+          <div className="flex flex-wrap gap-2 h-[415px] overflow-auto justify-center">
             {pokemons.map((pokemon) => (
               <div
-                className="card w-[200px] h-[250px] shadow-xl justify-center"
+                className="card w-[150px] h-[200px] shadow-xl justify-center"
                 key={pokemon._id}
                 style={{
                   background:
