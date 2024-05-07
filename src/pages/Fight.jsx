@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { fetchData } from '../utilities/FetchData';
 import Opponent from '../components/Opponent';
@@ -48,6 +49,7 @@ const Fight = ({ selectOnePoke }) => {
 			</div>
 		</>
 	);
+
 };
 
 export default Fight;
