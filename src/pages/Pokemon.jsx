@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import MyTeam from '../components/MyTeam';
 import { TailSpin } from 'react-loader-spinner';
 import '../../src/App.css';
+import { typeColors } from '../utilities/TypeColors';
 
 const Pokemon = () => {
 	const [pokemons, setPokemons] = useState([]);
@@ -54,27 +55,6 @@ const Pokemon = () => {
 		return <div>Error: {error}</div>;
 	}
 
-	const typeColors = {
-		Normal: '#A8A77A',
-		Fire: '#EE8130',
-		Water: '#6390F0',
-		Electric: '#F7D02C',
-		Grass: '#7AC74C',
-		Ice: '#96D9D6',
-		Fighting: '#C22E28',
-		Poison: '#A33EA1',
-		Ground: '#E2BF65',
-		Flying: '#A98FF3',
-		Psychic: '#F95587',
-		Bug: '#A6B91A',
-		Rock: '#B6A136',
-		Ghost: '#735797',
-		Dragon: '#6F35FC',
-		Dark: '#705746',
-		Steel: '#B7B7CE',
-		Fairy: '#D685AD',
-	};
-
 	const getPokemonBackgroundColor = (pokemon) => {
 		if (pokemon.type.length === 1) {
 			return typeColors[pokemon.type[0]] || '#A8A878';
@@ -89,14 +69,13 @@ const Pokemon = () => {
 		<div className='flex flex-wrap justify-evenly my-10'>
 			<MyTeam />
 			<div>
-				<h1 className='text-center mt-10 text-xl font-bold font-mono'>
+				<h1 className='text-center mt-10 text-xl font-bold font-outline'>
 					Filter
 				</h1>
-				<div className='my-12 font-mono mx-2 rounded-lg bg-warning py-8 px-4 lg:w-[400px]'>
+				<div className='my-12 font-mono mx-2 rounded-lg bg-warning py-8 px-4 lg:w-[340px]'>
 					<div className='flex flex-wrap justify-center'>
-						{/* Filter buttons */}
 						<button
-							className='btn btn-primary mx-1 my-1'
+							className='btn btn-primary mx-1 my-1 w-20'
 							onClick={showAllPokemons}
 						>
 							All
@@ -104,59 +83,53 @@ const Pokemon = () => {
 						{Object.keys(typeColors).map((type, index) => (
 							<button
 								key={index}
-								className='btn btn-primary mx-1 my-1'
+								className='btn btn-primary mx-1 my-1 w-20'
 								onClick={() => filterPokemonsByType(type)}
 							>
 								{type}
 							</button>
 						))}
-						{/* Button to show all Pokemon */}
 					</div>
 				</div>
 			</div>
 			<div>
-				<h1 className='text-center mt-10 text-xl font-bold font-mono'>
+				<h1 className='text-center mt-10 text-xl font-bold font-outline'>
 					Pokedex
 				</h1>
-				<div className='my-12 font-mono mx-2 rounded-lg bg-warning py-8 px-4 lg:w-[700px]'>
+				<div className='my-12 font-mono mx-2 rounded-lg bg-warning py-8 px-4 lg:w-[530px]'>
 					{loadingPokemon ? (
 						<div className='flex justify-center items-center'>
 							<TailSpin color='red' radius={'8px'} />
 						</div>
 					) : (
-						<div className='flex flex-wrap gap-2 h-[510px] overflow-y-scroll justify-center'>
+						<div className='flex flex-wrap gap-2 h-[415px] overflow-y-scroll justify-center'>
 							{filteredPokemons.map((pokemon) => (
 								<div
-									className='card w-[200px] h-[250px] bg-base-100 shadow-xl justify-center'
-									style={{
-										background: getPokemonBackgroundColor(pokemon),
-									}}
+									className='card w-[150px] h-[200px] shadow-xl justify-center'
 									key={pokemon._id}
+									style={{
+										background:
+											pokemon.type.length === 1
+												? typeColors[pokemon.type[0]]
+												: `linear-gradient(to right, ${
+														typeColors[pokemon.type[0]]
+												  }, ${typeColors[pokemon.type[1]]})`,
+									}}
 								>
 									<h2 className='pt-2 text-xl text-center'>{pokemon.name}</h2>
 									<figure>
 										<img
-											className='w-[100px] aspect-square object-cover'
+											className='w-[80px] aspect-square object-cover'
 											src={pokemon.image_url}
 											alt={pokemon.name}
 										/>
 									</figure>
-									<div className='card-body'>
-										<div className='card-actions justify-center'>
-											<Link
-												to={`/pokemon/pokemondetails/${pokemon._id}`}
-												className='btn btn-primary transition ease-in-out delay-150 hover:-translate-y-1'
-											>
-												More Details
-												<span>
-													<img
-														src='https://img.icons8.com/?size=16&id=45300&format=png'
-														alt='arrow'
-													/>
-												</span>
-											</Link>
-										</div>
-									</div>
+									<Link
+										to={`/pokemon/pokemondetails/${pokemon._id}`}
+										className='btn btn-primary transition ease-in-out delay-150 hover:-translate-y-1 mx-2'
+									>
+										More Details
+									</Link>
 								</div>
 							))}
 						</div>
