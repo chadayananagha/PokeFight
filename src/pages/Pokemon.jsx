@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import MyTeam from "../components/MyTeam";
 import { TailSpin } from "react-loader-spinner";
 import "../../src/App.css";
+import { typeColors } from "../utilities/TypeColors";
 
 const Pokemon = () => {
   const [pokemons, setPokemons] = useState([]);
@@ -54,27 +55,6 @@ const Pokemon = () => {
     return <div>Error: {error}</div>;
   }
 
-  const typeColors = {
-    Normal: "#A8A77A",
-    Fire: "#EE8130",
-    Water: "#6390F0",
-    Electric: "#F7D02C",
-    Grass: "#7AC74C",
-    Ice: "#96D9D6",
-    Fighting: "#C22E28",
-    Poison: "#A33EA1",
-    Ground: "#E2BF65",
-    Flying: "#A98FF3",
-    Psychic: "#F95587",
-    Bug: "#A6B91A",
-    Rock: "#B6A136",
-    Ghost: "#735797",
-    Dragon: "#6F35FC",
-    Dark: "#705746",
-    Steel: "#B7B7CE",
-    Fairy: "#D685AD",
-  };
-
   const getPokemonBackgroundColor = (pokemon) => {
     if (pokemon.type.length === 1) {
       return typeColors[pokemon.type[0]] || "#A8A878";
@@ -89,13 +69,13 @@ const Pokemon = () => {
     <div className="flex flex-wrap justify-evenly my-10">
       <MyTeam />
       <div>
-        <h1 className="text-center mt-10 text-xl font-bold font-mono">
+        <h1 className="text-center mt-10 text-xl font-bold font-outline">
           Filter
         </h1>
         <div className="my-12 font-mono mx-2 rounded-lg bg-warning py-8 px-4 lg:w-[340px]">
           <div className="flex flex-wrap justify-center">
             <button
-              className="btn btn-primary mx-1 my-1"
+              className="btn btn-primary mx-1 my-1 w-20"
               onClick={showAllPokemons}
             >
               All
@@ -103,7 +83,7 @@ const Pokemon = () => {
             {Object.keys(typeColors).map((type, index) => (
               <button
                 key={index}
-                className="btn btn-primary mx-1 my-1"
+                className="btn btn-primary mx-1 my-1 w-20"
                 onClick={() => filterPokemonsByType(type)}
               >
                 {type}
@@ -113,7 +93,7 @@ const Pokemon = () => {
         </div>
       </div>
       <div>
-        <h1 className="text-center mt-10 text-xl font-bold font-mono">
+        <h1 className="text-center mt-10 text-xl font-bold font-outline">
           Pokedex
         </h1>
         <div className="my-12 font-mono mx-2 rounded-lg bg-warning py-8 px-4 lg:w-[530px]">

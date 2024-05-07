@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { TailSpin } from "react-loader-spinner";
 import "../../src/App.css";
+import { typeColors } from "../utilities/TypeColors";
 
 const MyTeam = () => {
   const [loadingPokemon, setLoadingPokemon] = useState(false);
@@ -57,7 +58,7 @@ const MyTeam = () => {
   return (
     <div>
       <h1 className="text-center mt-10 text-xl font-bold font-mono">My Team</h1>
-      <div className="my-12 mx-2 font-mono rounded-lg bg-warning py-2 px-4 lg:w-[500px]">
+      <div className="my-12 mx-2 font-mono rounded-lg bg-warning py-2 px-4 lg:w-[700px]">
         <h2 className="text-lg font-bold text-center mb-2 text-black">
           Team Count: {pokemons.length}/6
         </h2>
@@ -69,10 +70,10 @@ const MyTeam = () => {
             <div class="pokeball"></div>
           </div>
         ) : (
-          <div className="flex flex-wrap gap-2 h-[415px] overflow-auto justify-center">
+          <div className="flex flex-wrap gap-2 h-[510px] overflow-auto justify-center">
             {pokemons.map((pokemon) => (
               <div
-                className="card w-[150px] h-[200px] shadow-xl justify-center"
+                className="card w-[200px] h-[250px] shadow-xl justify-center"
                 key={pokemon._id}
                 style={{
                   background:
