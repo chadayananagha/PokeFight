@@ -6,7 +6,7 @@ import { TailSpin } from "react-loader-spinner";
 import "../../src/App.css";
 import { typeColors } from "../utilities/TypeColors";
 
-const Pokemon = ({ setTeampokemons, teamPokemons }) => {
+const Pokemon = ({ setTeamPokemons, teamPokemons }) => {
   const [pokemons, setPokemons] = useState([]);
   const [loadingPokemon, setLoadingPokemon] = useState(false);
   const [error, setError] = useState(null);
@@ -67,7 +67,7 @@ const Pokemon = ({ setTeampokemons, teamPokemons }) => {
 
   return (
     <div className="flex flex-wrap justify-evenly my-10">
-      <MyTeam setTeampokemons={setTeampokemons} teamPokemons={teamPokemons} />
+      <MyTeam setTeamPokemons={setTeamPokemons} teamPokemons={teamPokemons} />
       <div>
         <h1 className="text-center mt-10 text-xl font-bold font-outline">
           Filter

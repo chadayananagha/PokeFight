@@ -2,6 +2,10 @@ import React from "react";
 import { typeColors } from "../utilities/TypeColors";
 
 const MyTeam = ({ teamPokemons, setTeamPokemons }) => {
+  const handleDeletePokemon = (id) => {
+    const updatedTeam = teamPokemons.filter((pokemon) => pokemon._id !== id);
+    setTeamPokemons(updatedTeam);
+  };
   return (
     <div>
       <h1 className="text-center mt-10 text-xl font-bold font-outline">
