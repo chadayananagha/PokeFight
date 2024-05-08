@@ -4,12 +4,20 @@ import Fight from "./pages/Fight";
 import Welcome from "./pages/Welcome";
 import Leaderboard from "./pages/Leaderboard";
 import Pokemon from "./pages/Pokemon";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PokemonDetails from "./components/PokemonDetails";
 
 function App() {
   const [selectOnePoke, setSelectOnePoke] = useState("");
-  const [teamPokemons, setTeamPokemons] = useState([]);
+  // const [teamPokemons, setTeamPokemons] = useState([]);
+  const [teamPokemons, setTeamPokemons] = useState(() => {
+    const storedTeamPokemons = localStorage.getItem("teamPokemons");
+    return storedTeamPokemons ? JSON.parse(storedTeamPokemons) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("teamPokemons", JSON.stringify(teamPokemons));
+  }, [teamPokemons]);
 
   const addPokemonToTeam = (pokemon) => {
     if (teamPokemons.length < 6) {
@@ -46,7 +54,6 @@ function App() {
             path="/pokemon"
             element={
               <Pokemon
-                selectOnePoke={selectOnePoke}
                 teamPokemons={teamPokemons}
                 setTeamPokemons={setTeamPokemons}
               />

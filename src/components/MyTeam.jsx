@@ -6,6 +6,7 @@ const MyTeam = ({ teamPokemons, setTeamPokemons }) => {
     const updatedTeam = teamPokemons.filter((pokemon) => pokemon._id !== id);
     setTeamPokemons(updatedTeam);
   };
+
   return (
     <div>
       <h1 className="text-center mt-10 text-xl font-bold font-outline">
@@ -22,9 +23,10 @@ const MyTeam = ({ teamPokemons, setTeamPokemons }) => {
               key={pokemon._id}
               style={{
                 background:
-                  pokemon.type.length === 1
+                  pokemon.type && pokemon.type.length === 1
                     ? typeColors[pokemon.type[0]]
-                    : `linear-gradient(to right, ${
+                    : pokemon.type &&
+                      `linear-gradient(to right, ${
                         typeColors[pokemon.type[0]]
                       }, ${typeColors[pokemon.type[1]]})`,
               }}
