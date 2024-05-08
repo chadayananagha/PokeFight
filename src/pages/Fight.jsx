@@ -49,7 +49,6 @@ const Fight = ({ selectOnePoke }) => {
 			</div>
 		</>
 	);
-
 };
 
 export default Fight;
