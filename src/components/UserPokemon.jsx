@@ -20,11 +20,11 @@ const UserPokemon = ({ selectOnePoke, selectedPokemon }) => {
 		fetchAPI();
 	}, []);
 	return (
-		<div className='flex justify-evenly'>
-			<div className='flex flex-wrap gap-2 h-[510px] overflow-auto justify-center'>
+		<div className='flex flex-col'>
+			<div className='flex justify-center'>
 				{selectedPokeForFight ? (
 					<div
-						className='card w-[200px] h-[250px] shadow-xl justify-center'
+						className='card w-[200px] h-[250px] shadow-xl'
 						style={{
 							background:
 								selectedPokeForFight.type.length === 1
@@ -51,6 +51,16 @@ const UserPokemon = ({ selectOnePoke, selectedPokemon }) => {
 					<p>Loading...</p>
 				)}
 			</div>
+			{selectedPokeForFight && (
+				<div className='mt-6'>
+					Attack: {selectedPokeForFight.stats.attack}
+					Defense: {selectedPokeForFight.stats.defense}
+					HP: {selectedPokeForFight.stats.health_points}
+					SP: {selectedPokeForFight.stats.special_attack}
+					SD: {selectedPokeForFight.stats.special_defense}
+					Speed: {selectedPokeForFight.stats.speed}
+				</div>
+			)}
 		</div>
 	);
 };
