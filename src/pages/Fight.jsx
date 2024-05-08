@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import Opponent from '../components/Opponent';
 import { useLocation } from 'react-router-dom';
@@ -110,6 +111,7 @@ const Fight = ({ selectOnePoke }) => {
 			</div>
 		</div>
 	);
+
 };
 
 export default Fight;

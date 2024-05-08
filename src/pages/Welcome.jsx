@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Welcome = ({ onSelect }) => {
+
 	const [pokemonData, setPokemonData] = useState([]);
 	const [selectedPokemon, setSelectedPokemon] = useState(null);
 	const [hoveredPokemon, setHoveredPokemon] = useState(null);
@@ -149,6 +150,7 @@ const Welcome = ({ onSelect }) => {
 			</button>
 		</div>
 	);
+
 };
 
 export default Welcome;
