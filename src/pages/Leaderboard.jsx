@@ -1,6 +1,8 @@
 import React from "react";
 import leaderboard from "../assets/leaderboard.webp";
-import pokeballIcon from "../assets/pokeball-icon.png"; // Import the pokeball icon image
+import pokeballIcon from "../assets/pokeball-icon.png";
+import defeatIcon from "../assets/defeat.png";
+import winIcon from "../assets/win.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faTrophy,
@@ -58,19 +60,22 @@ const Leaderboard = () => {
                 ) : null}
               </div>
               <div className="flex items-center">
-                <FontAwesomeIcon
-                  icon={faMedal}
-                  className="text-sm text-black mr-2"
-                />{" "}
+                <img
+                  src={winIcon}
+                  className="h-5 w-5 ml-4 mr-2"
+                  alt="Win Icon"
+                />
+
                 {userStatistics[index].wins}
-                <FontAwesomeIcon
-                  icon={faSkullCrossbones}
-                  className="text-sm text-black ml-4 mr-2"
-                />{" "}
+                <img
+                  src={defeatIcon}
+                  className="h-5 w-5 ml-4 mr-2"
+                  alt="Defeat Icon"
+                />
                 {userStatistics[index].losses}
                 <img
-                  src={pokeballIcon} // Use the pokeball icon image
-                  className="h-4 w-4 ml-4 mr-2" // Adjust size and margin as needed
+                  src={pokeballIcon}
+                  className="h-5 w-5 ml-4 mr-2"
                   alt="Pokeball Icon"
                 />
                 {userStatistics[index].pokemonCaught}
