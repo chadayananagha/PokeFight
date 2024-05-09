@@ -67,7 +67,7 @@ const Pokemon = ({ setTeamPokemons, teamPokemons }) => {
 
   return (
     <div className="flex flex-wrap justify-evenly my-10">
-      <MyTeam setTeamPokemons={setTeamPokemons} teamPokemons={teamPokemons} />
+      <MyTeam />
       <div>
         <h1 className="text-center mt-10 text-xl font-bold font-outline">
           Filter
