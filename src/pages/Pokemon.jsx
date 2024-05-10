@@ -20,6 +20,7 @@ const Pokemon = ({ setTeamPokemons, teamPokemons }) => {
 					'https://poke-fight-backend-ywlk.onrender.com/api/pokemons'
 				);
 				setPokemons(data.pokemons);
+
 				setLoadingPokemon(true);
 			} catch (error) {
 				setError('Error fetching Pokemons');

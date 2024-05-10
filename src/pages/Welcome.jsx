@@ -1,8 +1,7 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Welcome = ({ onSelect }) => {
-
 	const [pokemonData, setPokemonData] = useState([]);
 	const [selectedPokemon, setSelectedPokemon] = useState(null);
 	const [hoveredPokemon, setHoveredPokemon] = useState(null);
@@ -23,6 +22,7 @@ const Welcome = ({ onSelect }) => {
 				}
 				const data = await response.json();
 				setPokemonData(data.pokemons);
+
 				setIsLoading(false);
 			} catch (error) {
 				console.error('Error fetching data:', error);
@@ -38,6 +38,13 @@ const Welcome = ({ onSelect }) => {
 		setSelectedPokemon(pokemon);
 		setHoveredPokemon(null);
 		onSelect(pokemon);
+		console.log(pokemon);
+		const result = pokemonData.filter((poke) => poke.name == pokemon);
+		console.log(result);
+		const selectedPoke = localStorage.setItem(
+			'pokemon',
+			JSON.stringify(result[0])
+		);
 	};
 
 	const routeChange = () => {
@@ -150,7 +157,6 @@ const Welcome = ({ onSelect }) => {
 			</button>
 		</div>
 	);
-
 };
 
 export default Welcome;
