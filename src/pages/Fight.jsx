@@ -3,6 +3,7 @@ import Opponent from '../components/Opponent';
 import { useLocation } from 'react-router-dom';
 import { fightBattle } from '../utilities/FightLogic';
 import UserPokemon from '../components/UserPokemon';
+import CatchPokemon from '../components/CatchPokemon';
 
 const Fight = ({ selectOnePoke }) => {
 	const location = useLocation();
@@ -36,16 +37,16 @@ const Fight = ({ selectOnePoke }) => {
 				count++;
 			}
 			console.log(count);
-			// if (count > 3) {
-			// 	console.log(`winner is ${userPokemon.name}`);
-			// 	setWinner(`You Won!!`);
-			// } else if (count == 3) {
-			// 	console.log('its a draw');
-			// 	setWinner(`It's a Draw!!`);
-			// } else {
-			// 	console.log(`winner is ${opponentPokemon.name}`);
-			// 	setWinner('You Loose!! ');
-			// }
+			if (count > 3) {
+				console.log(`winner is ${userPokemon.name}`);
+				setWinner(`You Won!!`);
+			} else if (count == 3) {
+				console.log('its a draw');
+				setWinner(`It's a Draw!!`);
+			} else {
+				console.log(`winner is ${opponentPokemon.name}`);
+				setWinner('You Loose!! ');
+			}
 			setWinner(`You Won!!`);
 		}
 	};
@@ -53,7 +54,7 @@ const Fight = ({ selectOnePoke }) => {
 	console.log(selectOnePoke);
 	return (
 		<div className='flex flex-col justify-center items-center'>
-			<div className='w-full md:w-[90%] lg:w-[80%] xl:w-[70%] bg-warning text-black  rounded-3xl p-6 sm:p-12 flex flex-col justify-center items-center'>
+			<div className='w-full md:w-[90%] lg:w-[80%] xl:w-[70%] bg-warning text-black  rounded-3xl p-6 sm:p-12 flex flex-col justify-center items-center my-24'>
 				<div className='flex flex-col items-center justify-center'>
 					<h1 className='text-3xl sm:text-4xl md:text-5xl font-bold mb-4 font-outline'>
 						A wild Pokémon has appeared, {playerName}!
