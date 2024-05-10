@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { fetchData } from '../utilities/FetchData';
 import { typeColors } from '../utilities/TypeColors';
-import { fightBattle } from '../utilities/FightLogic';
 
 const UserPokemon = ({ selectOnePoke, selectedPokemon }) => {
 	const [pokemonData, setPokemonData] = useState([]);
@@ -20,11 +19,11 @@ const UserPokemon = ({ selectOnePoke, selectedPokemon }) => {
 		fetchAPI();
 	}, []);
 	return (
-		<div className='flex flex-col'>
+		<div className='flex flex-col w-96 mb-4'>
 			<div className='flex justify-center'>
 				{selectedPokeForFight ? (
 					<div
-						className='card w-[200px] h-[250px] shadow-xl'
+						className='card w-[200px] h-[200px] shadow-xl'
 						style={{
 							background:
 								selectedPokeForFight.type.length === 1
@@ -36,7 +35,7 @@ const UserPokemon = ({ selectOnePoke, selectedPokemon }) => {
 									: 'transparent',
 						}}
 					>
-						<h2 className='pt-2 text-xl text-center'>
+						<h2 className='pt-2 text-xl text-center mb-4'>
 							{selectedPokeForFight.name}
 						</h2>
 						<figure>
@@ -52,13 +51,15 @@ const UserPokemon = ({ selectOnePoke, selectedPokemon }) => {
 				)}
 			</div>
 			{selectedPokeForFight && (
-				<div className='mt-6'>
-					Attack: {selectedPokeForFight.stats.attack}
-					Defense: {selectedPokeForFight.stats.defense}
-					HP: {selectedPokeForFight.stats.health_points}
-					SP: {selectedPokeForFight.stats.special_attack}
-					SD: {selectedPokeForFight.stats.special_defense}
-					Speed: {selectedPokeForFight.stats.speed}
+				<div className='flex justify-center'>
+					<div className='mt-6 italic flex flex-col font-extrabold'>
+						<span>Attack: {selectedPokeForFight.stats.attack}</span>
+						<span>Defense: {selectedPokeForFight.stats.defense}</span>
+						<span>HP: {selectedPokeForFight.stats.health_points}</span>
+						<span>SP: {selectedPokeForFight.stats.special_attack}</span>
+						<span>SD: {selectedPokeForFight.stats.special_defense}</span>
+						<span>Speed: {selectedPokeForFight.stats.speed}</span>
+					</div>
 				</div>
 			)}
 		</div>
