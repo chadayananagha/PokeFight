@@ -2,10 +2,14 @@ import { useEffect, useState } from 'react';
 import { fetchData } from '../utilities/FetchData';
 import { typeColors } from '../utilities/TypeColors';
 
-const UserPokemon = ({ selectOnePoke, selectedPokemon }) => {
+const UserPokemon = ({
+	selectOnePoke,
+	selectedPokemon,
+	selectFromThumbnailPoke,
+}) => {
 	const [pokemonData, setPokemonData] = useState([]);
 	const [selectedPokeForFight, setSelectedPokeForFight] = useState(null);
-
+	console.log(selectFromThumbnailPoke);
 	useEffect(() => {
 		const fetchAPI = async () => {
 			const data = await fetchData();
@@ -13,15 +17,37 @@ const UserPokemon = ({ selectOnePoke, selectedPokemon }) => {
 			const result = data.pokemons.filter(
 				(pokemon) => pokemon.name === selectOnePoke
 			);
-			setSelectedPokeForFight(result[0]);
-			selectedPokemon(result[0]);
+			console.log(selectFromThumbnailPoke);
+			if (selectFromThumbnailPoke) {
+				console.log('i am here 2');
+				setSelectedPokeForFight(selectFromThumbnailPoke);
+				selectedPokemon(selectFromThumbnailPoke);
+				console.log(selectFromThumbnailPoke);
+			} else if (result[0] === undefined) {
+				console.log('i am here 1');
+				let selectPokeString = localStorage.getItem('teamPokemons');
+				let selectPokeParsed = JSON.parse(selectPokeString);
+				console.log(selectPokeParsed[0]);
+				setSelectedPokeForFight(selectPokeParsed[0]);
+				selectedPokemon(selectPokeParsed[0]);
+			} else {
+				setSelectedPokeForFight(result[0]);
+				selectedPokemon(result[0]);
+				console.log('i am here 3');
+			}
 		};
 		fetchAPI();
-	}, []);
+	}, [selectFromThumbnailPoke]);
+
+	// function toggleBorder(index, URL) {
+	// 	setSelected(index);
+	// 	setSelectedImageURL(URL);
+	// 	setWinner('');
+	// }
 	return (
 		<div className='flex flex-col w-96 mb-4'>
 			<div className='flex justify-center'>
-				{selectedPokeForFight ? (
+				{selectedPokeForFight && (
 					<div
 						className='card w-[200px] h-[200px] shadow-xl'
 						style={{
@@ -46,8 +72,6 @@ const UserPokemon = ({ selectOnePoke, selectedPokemon }) => {
 							/>
 						</figure>
 					</div>
-				) : (
-					<p>Loading...</p>
 				)}
 			</div>
 			{selectedPokeForFight && (

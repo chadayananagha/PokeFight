@@ -8,7 +8,6 @@ const Opponent = ({ opponentPokemon }) => {
 			const randomPokemon = await fetchRandomPokemon();
 			setPokemon(randomPokemon);
 			opponentPokemon(randomPokemon);
-			console.log(randomPokemon._id);
 		};
 		fetchAPI();
 	}, []);

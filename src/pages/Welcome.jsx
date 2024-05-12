@@ -38,9 +38,9 @@ const Welcome = ({ onSelect }) => {
 		setSelectedPokemon(pokemon);
 		setHoveredPokemon(null);
 		onSelect(pokemon);
-		console.log(pokemon);
+
 		const result = pokemonData.filter((poke) => poke.name == pokemon);
-		console.log(result);
+
 		const selectedPoke = localStorage.setItem(
 			'pokemon',
 			JSON.stringify(result[0])
