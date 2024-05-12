@@ -67,6 +67,7 @@ const Pokemon = () => {
             <button
               className="btn btn-primary mx-1 my-1 w-20"
               onClick={showAllPokemons}
+              style={{ backgroundColor: "#FFFFFF", color: "#000000" }} // Set background color to white and text color to black
             >
               All
             </button>
