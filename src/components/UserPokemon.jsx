@@ -33,9 +33,10 @@ const UserPokemon = ({
 				setSelectedPokeForFight(result[0]);
 				selectedPokemon(result[0]);
 			}
+			setDisplayedStats([]);
 		};
 		fetchAPI();
-	}, [selectFromThumbnailPoke]);
+	}, [selectOnePoke, selectFromThumbnailPoke, selectedPokemon]);
 
 	useEffect(() => {
 		if (showStats && selectedPokeForFight.stats) {
@@ -61,7 +62,7 @@ const UserPokemon = ({
 				}
 			}, 1000);
 		}
-	}, [showStats, displayedStats]);
+	}, [showStats, selectedPokeForFight, displayedStats]);
 
 	return (
 		<div className='flex flex-col w-96 mb-4'>

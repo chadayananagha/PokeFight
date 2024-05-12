@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { json } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-const CaughtPokeThumbnail = ({ setSelectFromThumbnailPoke }) => {
+const CaughtPokeThumbnail = ({ handleUserPokemonFromThumbnail }) => {
 	const [teamPokemon, setTeamPokemon] = useState(null);
 	const [selected, setSelected] = useState(0);
 	const [selectedImageURL, setSelectedImageURL] = useState();
@@ -17,7 +17,7 @@ const CaughtPokeThumbnail = ({ setSelectFromThumbnailPoke }) => {
 	function toggleBorder(index, URL) {
 		setSelected(index);
 		setSelectedImageURL(URL);
-		setSelectFromThumbnailPoke(teamPokemon[index]);
+		handleUserPokemonFromThumbnail(teamPokemon[index]);
 	}
 
 	return (
