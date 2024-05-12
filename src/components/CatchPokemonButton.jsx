@@ -1,9 +1,21 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import pokeBall from '../assets/pokeball-icon.png';
 
 const CatchPokemonButton = ({ addInMyTeam }) => {
 	const [caughtIt, setCaughtIt] = useState('Catch It!!');
+	const [showComponent, setShowComponent] = useState(false);
+
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			setShowComponent(true);
+		}, 9000);
+
+		return () => clearTimeout(timer);
+	}, []);
+
+	if (!showComponent) return null;
+
 	const handleClick = () => {
 		setCaughtIt('Caught It!!');
 		addInMyTeam();

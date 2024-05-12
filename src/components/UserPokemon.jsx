@@ -6,10 +6,12 @@ const UserPokemon = ({
 	selectOnePoke,
 	selectedPokemon,
 	selectFromThumbnailPoke,
+	showStats,
 }) => {
 	const [pokemonData, setPokemonData] = useState([]);
 	const [selectedPokeForFight, setSelectedPokeForFight] = useState(null);
-	console.log(selectFromThumbnailPoke);
+	const [displayedStats, setDisplayedStats] = useState([]);
+
 	useEffect(() => {
 		const fetchAPI = async () => {
 			const data = await fetchData();
@@ -17,33 +19,50 @@ const UserPokemon = ({
 			const result = data.pokemons.filter(
 				(pokemon) => pokemon.name === selectOnePoke
 			);
-			console.log(selectFromThumbnailPoke);
+
 			if (selectFromThumbnailPoke) {
-				console.log('i am here 2');
 				setSelectedPokeForFight(selectFromThumbnailPoke);
 				selectedPokemon(selectFromThumbnailPoke);
-				console.log(selectFromThumbnailPoke);
 			} else if (result[0] === undefined) {
-				console.log('i am here 1');
 				let selectPokeString = localStorage.getItem('teamPokemons');
 				let selectPokeParsed = JSON.parse(selectPokeString);
-				console.log(selectPokeParsed[0]);
+
 				setSelectedPokeForFight(selectPokeParsed[0]);
 				selectedPokemon(selectPokeParsed[0]);
 			} else {
 				setSelectedPokeForFight(result[0]);
 				selectedPokemon(result[0]);
-				console.log('i am here 3');
 			}
 		};
 		fetchAPI();
 	}, [selectFromThumbnailPoke]);
 
-	// function toggleBorder(index, URL) {
-	// 	setSelected(index);
-	// 	setSelectedImageURL(URL);
-	// 	setWinner('');
-	// }
+	useEffect(() => {
+		if (showStats && selectedPokeForFight.stats) {
+			const statsOrder = [
+				'attack',
+				'defense',
+				'health_points',
+				'special_attack',
+				'special_defense',
+				'speed',
+			];
+
+			const timer = setTimeout(() => {
+				const nextStat = statsOrder.find(
+					(stat) => !displayedStats.map(([name]) => name).includes(stat)
+				);
+
+				if (nextStat) {
+					setDisplayedStats((prevStats) => [
+						...prevStats,
+						[nextStat, selectedPokeForFight.stats[nextStat]],
+					]);
+				}
+			}, 1000);
+		}
+	}, [showStats, displayedStats]);
+
 	return (
 		<div className='flex flex-col w-96 mb-4'>
 			<div className='flex justify-center'>
@@ -76,13 +95,16 @@ const UserPokemon = ({
 			</div>
 			{selectedPokeForFight && (
 				<div className='flex justify-center'>
-					<div className='mt-6 italic flex flex-col font-extrabold'>
-						<span>Attack: {selectedPokeForFight.stats.attack}</span>
-						<span>Defense: {selectedPokeForFight.stats.defense}</span>
-						<span>HP: {selectedPokeForFight.stats.health_points}</span>
-						<span>SP: {selectedPokeForFight.stats.special_attack}</span>
-						<span>SD: {selectedPokeForFight.stats.special_defense}</span>
-						<span>Speed: {selectedPokeForFight.stats.speed}</span>
+					<div
+						className={`mt-6 italic flex flex-col font-extrabold`}
+						style={{ display: showStats ? 'block' : 'none' }}
+					>
+						{displayedStats.map(([name, value]) => (
+							<div key={name}>
+								<span>{name} :</span>
+								<span> {value}</span>
+							</div>
+						))}
 					</div>
 				</div>
 			)}
