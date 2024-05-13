@@ -85,7 +85,11 @@ const Fight = ({ selectOnePoke }) => {
             />
           </div>
           {battleStarted && (
-            <FightResult winner={winner} addInMyTeam={addInMyTeam} />
+            <FightResult
+              winner={winner}
+              addInMyTeam={addInMyTeam}
+              opponentPokemon={opponentPokemon}
+            />
           )}
           <div
             className={`flex justify-center mb-4 sm:mb-8 gap-6 flex-wrap ${
