@@ -61,6 +61,7 @@ const UserPokemon = ({
 					]);
 				}
 			}, 1000);
+			return () => clearTimeout(timer);
 		}
 	}, [showStats, selectedPokeForFight, displayedStats]);
 

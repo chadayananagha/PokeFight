@@ -2,7 +2,6 @@ import { useState } from 'react';
 import Opponent from '../components/Opponent';
 import { fightBattle } from '../utilities/FightLogic';
 import UserPokemon from '../components/UserPokemon';
-// import CatchPokemonButton from '../components/CatchPokemonButton';
 import CaughtPokeThumbnail from '../components/CaughtPokeThumbnail';
 import PlayerName from '../components/PlayerName';
 import FightResult from '../components/FightResult';
@@ -46,7 +45,6 @@ const Fight = ({ selectOnePoke }) => {
 			} else {
 				setWinner(`Whoopsie daisy! Looks like victory's on vacation!`);
 			}
-			setWinner(`Champion's feast, victory's beast!`);
 		}
 	};
 
@@ -68,7 +66,7 @@ const Fight = ({ selectOnePoke }) => {
 		<div>
 			<div className='flex flex-col justify-center items-center'>
 				<div className='w-full md:w-[90%] lg:w-[80%] xl:w-[70%] bg-warning text-black  rounded-xl p-6 sm:p-12 flex flex-col justify-center items-center my-24 relative'>
-					<span className='absolute top-1 my-44 left-1  mix-blend-multiply'>
+					<span className='absolute top-1 my-20 left-1  mix-blend-multiply'>
 						<CaughtPokeThumbnail
 							handleUserPokemonFromThumbnail={handleUserPokemonFromThumbnail}
 						/>
@@ -82,7 +80,7 @@ const Fight = ({ selectOnePoke }) => {
 							showStats={showStats}
 						/>
 						<Opponent
-							opponentPokemon={setOpponentPokemon}
+							setOpponentPokemon={setOpponentPokemon}
 							showStats={showStats}
 						/>
 					</div>
@@ -103,11 +101,6 @@ const Fight = ({ selectOnePoke }) => {
 							Start Battle
 						</button>
 					</div>
-					{/* {winner === `Champion's feast, victory's beast!` && (
-						<div className='flex self-end'>
-							<CatchPokemonButton addInMyTeam={addInMyTeam} />
-						</div>
-					)} */}
 				</div>
 			</div>
 		</div>
