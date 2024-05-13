@@ -69,7 +69,7 @@ const MyTeam = ({ teamPokemons, setTeamPokemons }) => {
       <h1 className="text-center mt-10 text-xl font-bold font-outline">
         My Team
       </h1>
-      <div className="my-12 mx-2 font-mono rounded-lg bg-warning py-2 px-4 lg:w-[500px]">
+      <div className="my-12 mx-2 font-mono rounded-lg bg-warning py-2 px-4 lg:w-[530px]">
         <h2 className="text-lg font-bold text-center mb-2 text-black">
           Team Count: {teamPokemons.length}/6
         </h2>
