@@ -43,7 +43,12 @@ function App() {
           />
           <Route
             path="/pokemon/pokemondetails/:id"
-            element={<PokemonDetails addPokemonToTeam={addPokemonToTeam} />}
+            element={
+              <PokemonDetails
+                addPokemonToTeam={addPokemonToTeam}
+                teamPokemons={teamPokemons}
+              />
+            }
           />
 
           <Route
