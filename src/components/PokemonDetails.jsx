@@ -3,8 +3,9 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { TailSpin } from "react-loader-spinner";
 import { typeColors } from "../utilities/TypeColors";
+import { FaStar } from "react-icons/fa";
 
-const PokemonDetails = ({ addPokemonToTeam }) => {
+const PokemonDetails = ({ addPokemonToTeam, teamPokemons }) => {
   const [singlePokemon, setSinglePokemon] = useState(null);
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
@@ -42,8 +43,12 @@ const PokemonDetails = ({ addPokemonToTeam }) => {
 
   return (
     <div className="xl:mx-96 lg:mx-28 justify-center my-12 font-mono mx-2 rounded-lg bg-warning py-8 px-4">
-      <div className="mb-2 text-6xl font-bold flex justify-center">
+      <div className="mb-2 text-6xl font-bold flex justify-center gap-8">
         <h2>{singlePokemon.name}</h2>
+        {/* Check if the pokemon's ID exists in the array of team Pokemon IDs, if yes, render the star icon */}
+        {teamPokemons.some((p) => p._id === singlePokemon._id) && (
+          <FaStar className="text-yellow-500" />
+        )}
       </div>
       <div className="flex gap-3 md:gap-8 flex-wrap justify-center md:justify-center lg:px-32 py-12">
         <div className="flex flex-col gap-4">

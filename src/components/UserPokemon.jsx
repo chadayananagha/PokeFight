@@ -2,9 +2,15 @@ import { useEffect, useState } from 'react';
 import { fetchData } from '../utilities/FetchData';
 import { typeColors } from '../utilities/TypeColors';
 
-const UserPokemon = ({ selectOnePoke, selectedPokemon }) => {
+const UserPokemon = ({
+	selectOnePoke,
+	selectedPokemon,
+	selectFromThumbnailPoke,
+	showStats,
+}) => {
 	const [pokemonData, setPokemonData] = useState([]);
 	const [selectedPokeForFight, setSelectedPokeForFight] = useState(null);
+	const [displayedStats, setDisplayedStats] = useState([]);
 
 	useEffect(() => {
 		const fetchAPI = async () => {
@@ -13,15 +19,56 @@ const UserPokemon = ({ selectOnePoke, selectedPokemon }) => {
 			const result = data.pokemons.filter(
 				(pokemon) => pokemon.name === selectOnePoke
 			);
-			setSelectedPokeForFight(result[0]);
-			selectedPokemon(result[0]);
+
+			if (selectFromThumbnailPoke) {
+				setSelectedPokeForFight(selectFromThumbnailPoke);
+				selectedPokemon(selectFromThumbnailPoke);
+			} else if (result[0] === undefined) {
+				let selectPokeString = localStorage.getItem('teamPokemons');
+				let selectPokeParsed = JSON.parse(selectPokeString);
+
+				setSelectedPokeForFight(selectPokeParsed[0]);
+				selectedPokemon(selectPokeParsed[0]);
+			} else {
+				setSelectedPokeForFight(result[0]);
+				selectedPokemon(result[0]);
+			}
+			setDisplayedStats([]);
 		};
 		fetchAPI();
-	}, []);
+	}, [selectOnePoke, selectFromThumbnailPoke, selectedPokemon]);
+
+	useEffect(() => {
+		if (showStats && selectedPokeForFight.stats) {
+			const statsOrder = [
+				'attack',
+				'defense',
+				'health_points',
+				'special_attack',
+				'special_defense',
+				'speed',
+			];
+
+			const timer = setTimeout(() => {
+				const nextStat = statsOrder.find(
+					(stat) => !displayedStats.map(([name]) => name).includes(stat)
+				);
+
+				if (nextStat) {
+					setDisplayedStats((prevStats) => [
+						...prevStats,
+						[nextStat, selectedPokeForFight.stats[nextStat]],
+					]);
+				}
+			}, 1000);
+			return () => clearTimeout(timer);
+		}
+	}, [showStats, selectedPokeForFight, displayedStats]);
+
 	return (
 		<div className='flex flex-col w-96 mb-4'>
 			<div className='flex justify-center'>
-				{selectedPokeForFight ? (
+				{selectedPokeForFight && (
 					<div
 						className='card w-[200px] h-[200px] shadow-xl'
 						style={{
@@ -46,19 +93,20 @@ const UserPokemon = ({ selectOnePoke, selectedPokemon }) => {
 							/>
 						</figure>
 					</div>
-				) : (
-					<p>Loading...</p>
 				)}
 			</div>
 			{selectedPokeForFight && (
 				<div className='flex justify-center'>
-					<div className='mt-6 italic flex flex-col font-extrabold'>
-						<span>Attack: {selectedPokeForFight.stats.attack}</span>
-						<span>Defense: {selectedPokeForFight.stats.defense}</span>
-						<span>HP: {selectedPokeForFight.stats.health_points}</span>
-						<span>SP: {selectedPokeForFight.stats.special_attack}</span>
-						<span>SD: {selectedPokeForFight.stats.special_defense}</span>
-						<span>Speed: {selectedPokeForFight.stats.speed}</span>
+					<div
+						className={`mt-6 italic flex flex-col font-extrabold`}
+						style={{ display: showStats ? 'block' : 'none' }}
+					>
+						{displayedStats.map(([name, value]) => (
+							<div key={name}>
+								<span>{name} :</span>
+								<span> {value}</span>
+							</div>
+						))}
 					</div>
 				</div>
 			)}

@@ -26,7 +26,9 @@ function App() {
         alert("You can only have one unique Pokemon in your team.");
       }
     } else {
-      alert("You can only have 6 Pokemons in your team.");
+      alert(
+        "You can only have 6 Pokemons in your team and if you want to add new remove any one of the pokemons from the team"
+      );
     }
   };
 
@@ -41,7 +43,12 @@ function App() {
           />
           <Route
             path="/pokemon/pokemondetails/:id"
-            element={<PokemonDetails addPokemonToTeam={addPokemonToTeam} />}
+            element={
+              <PokemonDetails
+                addPokemonToTeam={addPokemonToTeam}
+                teamPokemons={teamPokemons}
+              />
+            }
           />
 
           <Route
