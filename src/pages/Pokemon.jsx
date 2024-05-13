@@ -99,6 +99,7 @@ const Pokemon = ({ setTeamPokemons, teamPokemons }) => {
                 <button
                   className="btn btn-primary mx-1 my-1 w-20"
                   onClick={showAllPokemons}
+                  style={{ backgroundColor: "#FFFFFF", color: "#000000" }}
                 >
                   All
                 </button>
@@ -107,6 +108,7 @@ const Pokemon = ({ setTeamPokemons, teamPokemons }) => {
                     key={index}
                     className="btn btn-primary mx-1 my-1 w-20"
                     onClick={() => filterPokemonsByType(type)}
+                    style={{ backgroundColor: typeColors[type] }}
                   >
                     {type}
                   </button>
