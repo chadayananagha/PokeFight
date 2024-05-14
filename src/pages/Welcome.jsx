@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { typeColors } from '../utilities/TypeColors';
+// import { typeColors } from '../utilities/TypeColors';
 
 const Welcome = ({ onSelect }) => {
 	const [pokemonData, setPokemonData] = useState([]);
@@ -35,6 +35,10 @@ const Welcome = ({ onSelect }) => {
 		fetchData();
 	}, []);
 
+	useEffect(() => {
+		localStorage.clear();
+	}, []);
+
 	const handleSelectPokemon = (pokemon) => {
 		setSelectedPokemon(pokemon);
 		setHoveredPokemon(null);
@@ -50,7 +54,7 @@ const Welcome = ({ onSelect }) => {
 
 	if (isLoading) {
 		return (
-			<div className='wrapper my-96'>
+			<div className='wrapper my-96 mx-[900px]'>
 				<div className='pokeball'></div>
 			</div>
 		);
@@ -65,6 +69,11 @@ const Welcome = ({ onSelect }) => {
 			navigate(`/fight?playerName=${encodeURIComponent(playerName)}`);
 		}
 	};
+
+	const saveName = localStorage.setItem(
+		'PlayerName',
+		JSON.stringify(playerName)
+	);
 
 	if (isLoading) {
 		return <div>Loading...</div>;

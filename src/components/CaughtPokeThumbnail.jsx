@@ -26,17 +26,23 @@ const CaughtPokeThumbnail = ({ handleUserPokemonFromThumbnail }) => {
 		<>
 			{teamPokemon &&
 				teamPokemon.slice(0, 6).map((pokemon, index) => (
-					<Link key={pokemon.name}>
-						<img
-							onClick={() => toggleBorder(index, pokemon.image_url)}
-							className={`border rounded my-5 ${
-								selected === index ? 'border-2 border-black ' : ''
-							}`}
-							src={pokemon.image_url}
-							alt=''
-							width={50}
-						/>
-					</Link>
+					<>
+						<Link
+							className='flex flex-col tooltip'
+							data-tip={pokemon.type}
+							key={pokemon.name}
+						>
+							<img
+								onClick={() => toggleBorder(index, pokemon.image_url)}
+								className={`border rounded my-2 ${
+									selected === index ? 'border-2 border-black ' : ''
+								}`}
+								src={pokemon.image_url}
+								alt=''
+								width={50}
+							/>
+						</Link>
+					</>
 				))}
 		</>
 	);

@@ -23,6 +23,9 @@ const Fight = ({ selectOnePoke }) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const animationImages = [Bam, ohh, zap, boom, pow];
 
+	const playerNameString = localStorage.getItem('PlayerName');
+	const PlayerNameParsed = JSON.parse(playerNameString);
+
 	useEffect(() => {
 		if (battleStarted && animationIndex < animationImages.length) {
 			const animationTimer = setTimeout(() => {
@@ -75,7 +78,7 @@ const Fight = ({ selectOnePoke }) => {
 				setPoints(updatedPoints);
 				localStorage.setItem(
 					'userStats',
-					JSON.stringify({ playerName, points: updatedPoints })
+					JSON.stringify({ PlayerNameParsed, points: updatedPoints })
 				);
 			} else if (count == 3) {
 				setWinner(`It's a Draw!!`);
@@ -105,8 +108,8 @@ const Fight = ({ selectOnePoke }) => {
 	return (
 		<div>
 			<div className='flex flex-col justify-center items-center'>
-				<div className='w-full md:w-[90%] lg:w-[80%] xl:w-[70%] bg-warning text-black rounded-xl py-24 px-6 flex flex-col justify-center items-center lg:my-32 my-8 md:my-20 relative'>
-					<span className='absolute top-1 lg:ml-6 my-60 md:my-[190px] left-1 mix-blend-multiply'>
+				<div className='w-full md:w-[90%] lg:w-[80%] xl:w-[70%] bg-warning text-black rounded-xl py-36 px-6 flex flex-col justify-center items-center lg:my-32 my-8 md:my-20 relative'>
+					<span className='absolute top-1 lg:ml-6 my-80 md:my-[300px] left-1 mix-blend-multiply'>
 						<CaughtPokeThumbnail
 							handleUserPokemonFromThumbnail={handleUserPokemonFromThumbnail}
 						/>
@@ -163,5 +166,3 @@ const Fight = ({ selectOnePoke }) => {
 	);
 };
 export default Fight;
-
-// && animationIndex < animationImages.length &&

@@ -14,7 +14,6 @@ const Opponent = ({ setOpponentPokemon, showStats, battleStarted }) => {
 			setOpponentPokemon(randomPokemon);
 			setDisplayedStats([]);
 			setIsLoading(false);
-			//   opponentPokemon(randomPokemon);
 		};
 		fetchAPI();
 	}, [setOpponentPokemon]);

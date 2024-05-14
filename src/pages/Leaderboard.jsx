@@ -9,6 +9,7 @@ import {
 	faRibbon,
 	faMedal,
 } from '@fortawesome/free-solid-svg-icons';
+import PlayerName from '../components/PlayerName';
 
 const Leaderboard = () => {
 	const [userStatistics, setUserStatistics] = useState([]);
@@ -20,6 +21,13 @@ const Leaderboard = () => {
 			setUserStatistics([storedStats]); // Update user statistics correctly
 		}
 	}, []);
+
+	const playerNameString = localStorage.getItem('PlayerName');
+	const PlayerNameParsed = JSON.parse(playerNameString);
+
+	// if (!PlayerNameParsed) {
+	// 	localStorage.clear('userStats');
+	// }
 
 	return (
 		<div className='min-h-screen flex flex-col items-center justify-center py-8'>
@@ -39,7 +47,7 @@ const Leaderboard = () => {
 						>
 							<div className='flex items-center'>
 								<div className={index === 0 ? 'font-bold mr-4' : 'mr-4'}>
-									{index + 1}. {userStat.playerName}
+									{index + 1}. {PlayerNameParsed}
 								</div>
 								{index === 0 || index === 1 || index === 2 ? (
 									<FontAwesomeIcon
@@ -61,14 +69,14 @@ const Leaderboard = () => {
 									className='h-5 w-5 ml-4 mr-2'
 									alt='Win Icon'
 								/>
-								({userStat.wins}) {/* Display number of wins */}
+								{Math.floor(userStat.points / 4)} {/* Display number of wins */}
 								{userStat.wins} {/* Number of wins */}
 								<img
 									src={pokeballIcon}
 									className='h-5 w-5 ml-4 mr-2'
 									alt='Pokeball Icon'
 								/>
-								{Math.floor(userStat.points / 20)}{' '}
+								{Math.floor(userStat.points / 4)}{' '}
 								{/* Number of uniquely caught Pokemon */}
 							</div>
 						</div>
