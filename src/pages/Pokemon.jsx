@@ -12,6 +12,7 @@ const Pokemon = ({ setTeamPokemons, teamPokemons }) => {
   const [error, setError] = useState(null);
   const [filteredPokemons, setFilteredPokemons] = useState([]);
   const [filterType, setFilterType] = useState("all");
+  const [caughtPokemonIds, setCaughtPokemonIds] = useState([]);
 
   useEffect(() => {
     const getAllPokemons = async () => {
@@ -31,6 +32,10 @@ const Pokemon = ({ setTeamPokemons, teamPokemons }) => {
     getAllPokemons();
   }, []);
 
+  useEffect(() => {
+    setFilteredPokemons(pokemons);
+  }, [pokemons]);
+
   const filterPokemonsByType = (type) => {
     setFilterType(type);
     if (type === "all") {
@@ -42,10 +47,6 @@ const Pokemon = ({ setTeamPokemons, teamPokemons }) => {
       setFilteredPokemons(filtered);
     }
   };
-
-  useEffect(() => {
-    setFilteredPokemons(pokemons);
-  }, [pokemons]);
 
   const showAllPokemons = () => {
     setFilterType("all");

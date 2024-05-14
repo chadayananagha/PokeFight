@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Opponent from "../components/Opponent";
 import { useLocation } from "react-router-dom";
 import { fightBattle } from "../utilities/FightLogic";
@@ -12,46 +12,36 @@ const Fight = ({ selectOnePoke }) => {
   const [userPokemon, setUserPokemon] = useState(null);
   const [opponentPokemon, setOpponentPokemon] = useState(null);
   const [winner, setWinner] = useState("");
+  const [points, setPoints] = useState(0);
+
+  useEffect(() => {
+    const storedStats = JSON.parse(localStorage.getItem("userStats"));
+    if (storedStats) {
+      setPoints(storedStats.points);
+    }
+  }, []);
 
   const startBattle = () => {
     if (userPokemon && opponentPokemon) {
       const result = fightBattle(userPokemon, opponentPokemon);
-      console.log(result);
-      let count = 0;
-      if (result.userPokemonAttack > 0) {
-        count++;
-      }
-      if (result.userPokemonHealth > 0) {
-        count++;
-      }
-      if (result.userPokemonSPAttack > 0) {
-        count++;
-      }
-      if (result.userPokemonSPdefense > 0) {
-        count++;
-      }
-      if (result.userPokemonSpeed > 0) {
-        count++;
-      }
-      if (result.userPokemondefense > 0) {
-        count++;
-      }
-      console.log(count);
+
+      let count = Object.values(result).filter((value) => value > 0).length;
       if (count > 3) {
-        console.log(`winner is ${userPokemon.name}`);
         setWinner(`You Won!!`);
-      } else if (count == 3) {
-        console.log("its a draw");
+        const updatedPoints = points + 4;
+        setPoints(updatedPoints);
+        localStorage.setItem(
+          "userStats",
+          JSON.stringify({ playerName, points: updatedPoints })
+        );
+      } else if (count === 3) {
         setWinner(`It's a Draw!!`);
       } else {
-        console.log(`winner is ${opponentPokemon.name}`);
-        setWinner("You Loose!! ");
+        setWinner("You Lose!!");
       }
-      // setWinner(`You Won!!`);
     }
   };
 
-  console.log(selectOnePoke);
   return (
     <div className="flex flex-col justify-center items-center">
       <div className="w-full md:w-[90%] lg:w-[80%] xl:w-[70%] bg-warning text-black  rounded-3xl p-6 sm:p-12 flex flex-col justify-center items-center my-24">
@@ -84,7 +74,8 @@ const Fight = ({ selectOnePoke }) => {
 
           {winner === `You Won!!` && (
             <div className="flex self-end">
-              <CatchPokemon />
+              {/* Pass the function to update points to the CatchPokemon component */}
+              <CatchPokemon updatePoints={() => setPoints(points + 20)} />
             </div>
           )}
         </div>
@@ -92,4 +83,5 @@ const Fight = ({ selectOnePoke }) => {
     </div>
   );
 };
+
 export default Fight;
