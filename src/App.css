@@ -33,11 +33,20 @@
 }
 
 /* AnimationFrames */
-@keyframes frames {
+/* @keyframes frames {
 	0% {
-		transform: rotate(0deg);
+		transform: 'translateX(0)';
 	}
 	100% {
-		transform: rotate(360deg);
+		transform: 'translateX(100%)';
+	}
+} */
+
+@keyframes ltr-linear-infinite {
+	from {
+		transform: translateX(0%);
+	}
+	to {
+		transform: translateX(400%);
 	}
 }

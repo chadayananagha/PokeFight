@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { typeColors } from '../utilities/TypeColors';
 
 const Welcome = ({ onSelect }) => {
 	const [pokemonData, setPokemonData] = useState([]);
@@ -46,6 +47,14 @@ const Welcome = ({ onSelect }) => {
 			JSON.stringify(result[0])
 		);
 	};
+
+	if (isLoading) {
+		return (
+			<div className='wrapper my-96'>
+				<div className='pokeball'></div>
+			</div>
+		);
+	}
 
 	const routeChange = () => {
 		if (!playerName) {
