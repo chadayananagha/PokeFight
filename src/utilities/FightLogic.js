@@ -1,8 +1,6 @@
 import data from '../../data/Fight_logic.json';
 
 export const fightBattle = (userPokemon, opponentPokemon) => {
-	console.log(userPokemon.stats);
-	console.log(opponentPokemon.type);
 	const multiplier = getMultiplier(userPokemon.type, opponentPokemon.type);
 	const userPokemonAttack =
 		userPokemon.stats.attack * multiplier - opponentPokemon.stats.attack;
