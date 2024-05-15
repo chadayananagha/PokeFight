@@ -36,11 +36,8 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<MainLayout />}>
-          <Route path="/" element={<Welcome />} />
-          <Route
-            path="/welcome"
-            element={<Welcome onSelect={setSelectOnePoke} />}
-          />
+          {/* <Route path="/" element={<Welcome />} /> */}
+          <Route path="/" element={<Welcome onSelect={setSelectOnePoke} />} />
           <Route
             path="/pokemon/pokemondetails/:id"
             element={
