@@ -35,9 +35,9 @@ const Welcome = ({ onSelect }) => {
     fetchData();
   }, []);
 
-  // useEffect(() => {
-  // 	localStorage.clear();
-  // }, []);
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
 
   const handleSelectPokemon = (pokemon) => {
     setSelectedPokemon(pokemon);
