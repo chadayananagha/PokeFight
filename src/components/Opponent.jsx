@@ -52,8 +52,14 @@ const Opponent = ({ setOpponentPokemon, showStats, battleStarted }) => {
 
 	if (isLoading) {
 		return (
-			<div className='wrapper my-36'>
-				<div className='pokeball'></div>
+			<div className='flex justify-center items-center'>
+				<img
+					className='animate-spin'
+					src='../public/PokeBall.png'
+					alt='pokeball Image'
+					width={70}
+					height={70}
+				/>
 			</div>
 		);
 	}
