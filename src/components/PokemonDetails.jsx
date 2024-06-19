@@ -35,8 +35,14 @@ const PokemonDetails = ({ addPokemonToTeam, teamPokemons }) => {
 
 	if (loading) {
 		return (
-			<div className='wrapper'>
-				<div className='pokeball'></div>
+			<div className='flex justify-center items-center h-screen'>
+				<img
+					className='animate-spin'
+					src='/public/PokeBall.png'
+					alt='pokeball Image'
+					width={70}
+					height={70}
+				/>
 			</div>
 		);
 	}
