@@ -16,6 +16,7 @@ const Pokemon = ({ setTeamPokemons, teamPokemons }) => {
 	useEffect(() => {
 		const getAllPokemons = async () => {
 			try {
+				setLoadingPokemon(true);
 				const { data } = await axios.get(
 					'https://poke-fight-backend-ywlk.onrender.com/api/pokemons'
 				);
@@ -71,6 +72,19 @@ const Pokemon = ({ setTeamPokemons, teamPokemons }) => {
 	const filteredPokemonsByName = filteredPokemons.filter((pokemon) =>
 		pokemon.name.toLowerCase().includes(searchQuery.toLowerCase())
 	);
+	if (loadingPokemon) {
+		return (
+			<div className='flex justify-center items-center h-screen'>
+				<img
+					className='animate-spin'
+					src='/public/PokeBall.png'
+					alt='pokeball Image'
+					width={70}
+					height={70}
+				/>
+			</div>
+		);
+	}
 
 	return (
 		<div>
@@ -120,45 +134,37 @@ const Pokemon = ({ setTeamPokemons, teamPokemons }) => {
 							Pokedex
 						</h1>
 						<div className='my-12 font-mono mx-2 rounded-lg bg-warning py-8 px-4 lg:w-[530px]'>
-							{loadingPokemon ? (
-								<div className='wrapper my-96'>
-									<div className='pokeball'></div>
-								</div>
-							) : (
-								<div className='flex flex-wrap gap-2 h-[415px] overflow-y-scroll justify-center'>
-									{filteredPokemonsByName.map((pokemon) => (
-										<div
-											className='card w-[150px] h-[200px] shadow-xl justify-center'
-											key={pokemon._id}
-											style={{
-												background:
-													pokemon.type.length === 1
-														? typeColors[pokemon.type[0]]
-														: `linear-gradient(to right, ${
-																typeColors[pokemon.type[0]]
-														  }, ${typeColors[pokemon.type[1]]})`,
-											}}
+							<div className='flex flex-wrap gap-2 h-[415px] overflow-y-scroll justify-center'>
+								{filteredPokemonsByName.map((pokemon) => (
+									<div
+										className='card w-[150px] h-[200px] shadow-xl justify-center'
+										key={pokemon._id}
+										style={{
+											background:
+												pokemon.type.length === 1
+													? typeColors[pokemon.type[0]]
+													: `linear-gradient(to right, ${
+															typeColors[pokemon.type[0]]
+													  }, ${typeColors[pokemon.type[1]]})`,
+										}}
+									>
+										<h2 className='pt-2 text-xl text-center'>{pokemon.name}</h2>
+										<figure>
+											<img
+												className='w-[80px] aspect-square object-cover'
+												src={pokemon.image_url}
+												alt={pokemon.name}
+											/>
+										</figure>
+										<Link
+											to={`/pokemon/pokemondetails/${pokemon._id}`}
+											className='btn btn-primary transition ease-in-out delay-150 hover:-translate-y-1 mx-2'
 										>
-											<h2 className='pt-2 text-xl text-center'>
-												{pokemon.name}
-											</h2>
-											<figure>
-												<img
-													className='w-[80px] aspect-square object-cover'
-													src={pokemon.image_url}
-													alt={pokemon.name}
-												/>
-											</figure>
-											<Link
-												to={`/pokemon/pokemondetails/${pokemon._id}`}
-												className='btn btn-primary transition ease-in-out delay-150 hover:-translate-y-1 mx-2'
-											>
-												More Details
-											</Link>
-										</div>
-									))}
-								</div>
-							)}
+											More Details
+										</Link>
+									</div>
+								))}
+							</div>
 						</div>
 					</div>
 				</div>
