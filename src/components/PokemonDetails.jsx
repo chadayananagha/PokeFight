@@ -4,6 +4,7 @@ import axios from 'axios';
 import { TailSpin } from 'react-loader-spinner';
 import { typeColors } from '../utilities/TypeColors';
 import { FaStar } from 'react-icons/fa';
+import PokeBall from '/PokeBall.png';
 
 const PokemonDetails = ({ addPokemonToTeam, teamPokemons }) => {
 	const [singlePokemon, setSinglePokemon] = useState(null);
@@ -38,7 +39,7 @@ const PokemonDetails = ({ addPokemonToTeam, teamPokemons }) => {
 			<div className='flex justify-center items-center h-screen'>
 				<img
 					className='animate-spin'
-					src='/public/PokeBall.png'
+					src={PokeBall}
 					alt='pokeball Image'
 					width={70}
 					height={70}

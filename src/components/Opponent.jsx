@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { fetchRandomPokemon } from '../utilities/FetchData';
 import { typeColors } from '../utilities/TypeColors';
+import PokeBall from '/PokeBall.png';
 
 const Opponent = ({ setOpponentPokemon, showStats, battleStarted }) => {
 	const [pokemon, setPokemon] = useState({});
@@ -57,7 +58,7 @@ const Opponent = ({ setOpponentPokemon, showStats, battleStarted }) => {
 			<div className='flex justify-center items-center'>
 				<img
 					className='animate-spin'
-					src='../public/PokeBall.png'
+					src={PokeBall}
 					alt='pokeball Image'
 					width={70}
 					height={70}

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import PokeBall from '/PokeBall.png';
 // import { typeColors } from '../utilities/TypeColors';
 
 const Welcome = ({ onSelect }) => {
@@ -57,7 +58,7 @@ const Welcome = ({ onSelect }) => {
 			<div className='flex justify-center items-center h-screen'>
 				<img
 					className='animate-spin'
-					src='../public/PokeBall.png'
+					src={PokeBall}
 					alt='pokeball Image'
 					width={70}
 					height={70}
